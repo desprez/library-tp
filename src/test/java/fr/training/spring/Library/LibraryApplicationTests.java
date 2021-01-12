@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +24,7 @@ import org.springframework.http.ResponseEntity;
 import fr.training.spring.Library.domain.exception.ErrorCodes;
 import fr.training.spring.Library.domain.library.Library;
 import fr.training.spring.Library.domain.library.Type;
+import fr.training.spring.Library.exposition.LibraryDTO;
 import fr.training.spring.Library.infrastructure.LibraryDAO;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -102,7 +104,18 @@ class LibraryApplicationTests {
 
 		// --------------- When ---------------
 		// I do a request on /libraries
-		final ResponseEntity<Long> response = restTemplate.postForEntity("/libraries", NATIONAL_LIBRARY_MONTREUIL,
+		final LibraryDTO mantional_library_montreuil_dto = new LibraryDTO(NATIONAL_LIBRARY_MONTREUIL.getType(),
+				new LibraryDTO.AddressDTO(NATIONAL_LIBRARY_MONTREUIL.getAddress().getNumber(),
+						NATIONAL_LIBRARY_MONTREUIL.getAddress().getStreet(),
+						NATIONAL_LIBRARY_MONTREUIL.getAddress().getPostalCode(),
+						NATIONAL_LIBRARY_MONTREUIL.getAddress().getCity()),
+				new LibraryDTO.DirectorDTO(
+						NATIONAL_LIBRARY_MONTREUIL.getDirector().getSurname(), NATIONAL_LIBRARY_MONTREUIL.getDirector()
+						.getName()),
+				NATIONAL_LIBRARY_MONTREUIL.getBooks().stream().map(book -> new LibraryDTO.BookDTO(book.getTitle(),
+						book.getAuthor(), book.getNumberOfPage(), book.getLiteraryGenre()))
+				.collect(Collectors.toList()));
+		final ResponseEntity<Long> response = restTemplate.postForEntity("/libraries", mantional_library_montreuil_dto,
 				Long.class);
 
 		// --------------- Then ---------------
@@ -149,8 +162,8 @@ class LibraryApplicationTests {
 			// Test data
 
 			// --------------- When ---------------
-			final ResponseEntity<String> response = restTemplate.exchange("/libraries/" + Long.MAX_VALUE, HttpMethod.PUT,
-					new HttpEntity<>(SCHOOL_LIBRARY_PARIS), String.class);
+			final ResponseEntity<String> response = restTemplate.exchange("/libraries/" + Long.MAX_VALUE,
+					HttpMethod.PUT, new HttpEntity<>(SCHOOL_LIBRARY_PARIS), String.class);
 
 			// --------------- Then ---------------
 			assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
@@ -183,8 +196,8 @@ class LibraryApplicationTests {
 			// Test data
 
 			// --------------- When ---------------
-			final ResponseEntity<String> response = restTemplate.exchange("/libraries/" + Long.MAX_VALUE, HttpMethod.DELETE,
-					null, String.class);
+			final ResponseEntity<String> response = restTemplate.exchange("/libraries/" + Long.MAX_VALUE,
+					HttpMethod.DELETE, null, String.class);
 
 			// --------------- Then ---------------
 			assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
@@ -214,8 +227,8 @@ class LibraryApplicationTests {
 		// Test data
 
 		// --------------- When ---------------
-		final ResponseEntity<Library[]> response = restTemplate.getForEntity("/libraries/director/surname/" + "Garfield",
-				Library[].class);
+		final ResponseEntity<Library[]> response = restTemplate
+				.getForEntity("/libraries/director/surname/" + "Garfield", Library[].class);
 
 		// --------------- Then ---------------
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.training.spring.Library.application.LibraryService;
 import fr.training.spring.Library.domain.library.Library;
 import fr.training.spring.Library.domain.library.Type;
-
 @RestController
 public class LibraryResource {
 
@@ -25,8 +24,8 @@ public class LibraryResource {
 
 	@PostMapping("/libraries")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Long createLibrary(@RequestBody final Library library) {
-		return libraryService.create(library);
+	public Long createLibrary(@RequestBody final LibraryDTO libraryDTO) {
+		return libraryService.create(LibraryAdapter.transformToLibrary(libraryDTO));
 	}
 
 	@GetMapping("/libraries/{libraryId}")
@@ -64,4 +63,5 @@ public class LibraryResource {
 	public List<Library> listAllLibrairiesByDirectorName(@PathVariable("surname") final String surname) {
 		return libraryService.listAllByDirectorName(surname);
 	}
+
 }
