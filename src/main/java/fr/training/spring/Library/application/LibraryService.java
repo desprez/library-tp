@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.training.spring.Library.domain.Library;
-import fr.training.spring.Library.domain.Type;
 import fr.training.spring.Library.domain.exception.LibraryNotFoundException;
+import fr.training.spring.Library.domain.library.Library;
+import fr.training.spring.Library.domain.library.Type;
 import fr.training.spring.Library.infrastructure.LibraryDAO;
 
 @Transactional
