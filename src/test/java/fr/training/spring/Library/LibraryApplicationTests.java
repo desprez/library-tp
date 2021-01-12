@@ -31,7 +31,6 @@ import fr.training.spring.Library.infrastructure.LibraryJPA;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DisplayName("tp-spring-0")
 class LibraryApplicationTests {
-
 	@Autowired
 	private TestRestTemplate restTemplate;
 
@@ -97,42 +96,72 @@ class LibraryApplicationTests {
 		assertThat(response.getBody().getId()).isEqualTo(dummyLibrary.getId());
 	}
 
-	@Test
-	@DisplayName("Api POST:/libraries should return a status created with ID of created library when passing a correct library")
-	void test_create_1() {
-		// --------------- Given ---------------
-		// Test data
+	@Nested
+	@DisplayName("Api POST:/libraries ")
+	class test_create {
 
-		// --------------- When ---------------
-		// I do a request on /libraries
-		final LibraryDTO mantional_library_montreuil_dto = new LibraryDTO(NATIONAL_LIBRARY_MONTREUIL.getType(),
-				new LibraryDTO.AddressDTO(NATIONAL_LIBRARY_MONTREUIL.getAddress().getNumber(),
-						NATIONAL_LIBRARY_MONTREUIL.getAddress().getStreet(),
-						NATIONAL_LIBRARY_MONTREUIL.getAddress().getPostalCode(),
-						NATIONAL_LIBRARY_MONTREUIL.getAddress().getCity()),
-				new LibraryDTO.DirectorDTO(
-						NATIONAL_LIBRARY_MONTREUIL.getDirector().getSurname(), NATIONAL_LIBRARY_MONTREUIL.getDirector()
-						.getName()),
-				NATIONAL_LIBRARY_MONTREUIL.getBooks().stream().map(book -> new LibraryDTO.BookDTO(book.getTitle(),
-						book.getAuthor(), book.getNumberOfPage(), book.getLiteraryGenre()))
-				.collect(Collectors.toList()));
-		final ResponseEntity<Long> response = restTemplate.postForEntity("/libraries", mantional_library_montreuil_dto,
-				Long.class);
+		@Test
+		@DisplayName("should return a status created with ID of created library when passing a correct library")
+		void test_create_1() {
+			// --------------- Given ---------------
+			final LibraryDTO national_library_montreuil_dto = new LibraryDTO(NATIONAL_LIBRARY_MONTREUIL.getType(),
+					new LibraryDTO.AddressDTO(NATIONAL_LIBRARY_MONTREUIL.getAddress().getNumber(),
+							NATIONAL_LIBRARY_MONTREUIL.getAddress().getStreet(),
+							NATIONAL_LIBRARY_MONTREUIL.getAddress().getPostalCode(),
+							NATIONAL_LIBRARY_MONTREUIL.getAddress().getCity()),
+					new LibraryDTO.DirectorDTO(
+							NATIONAL_LIBRARY_MONTREUIL.getDirector().getSurname(), NATIONAL_LIBRARY_MONTREUIL
+							.getDirector().getName()),
+					NATIONAL_LIBRARY_MONTREUIL.getBooks().stream().map(book -> new LibraryDTO.BookDTO(book.getTitle(),
+							book.getAuthor(), book.getNumberOfPage(), book.getLiteraryGenre()))
+					.collect(Collectors.toList()));
 
-		// --------------- Then ---------------
-		// I get a success code, and a new library in the database with the given ID
-		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-		final Long idCreated = response.getBody();
-		assertThat(idCreated).isNotNull().isPositive();
+			// --------------- When ---------------
+			// I do a request on /libraries
+			final ResponseEntity<Long> response = restTemplate.postForEntity("/libraries",
+					national_library_montreuil_dto, Long.class);
 
-		final Optional<LibraryJPA> libraryFromDB = libraryDAO.findById(idCreated);
-		assertThat(libraryFromDB).isNotEmpty();
+			// --------------- Then ---------------
+			// I get a success code, and a new library in the database with the given ID
+			assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+			final Long idCreated = response.getBody();
+			assertThat(idCreated).isNotNull().isPositive();
 
-		// Due to equals method not being implemented, we would need to compare field by
-		// fields...which is bad !
-		// We'll talk about equality in DDD further in this course.
-		// TODO : Check equality
-		assertThat(libraryFromDB.get().getType()).isEqualTo(NATIONAL_LIBRARY_MONTREUIL.getType());
+			final Optional<LibraryJPA> libraryFromDB = libraryDAO.findById(idCreated);
+			assertThat(libraryFromDB).isNotEmpty();
+
+			// Due to equals method not being implemented, we would need to compare field by
+			// fields...which is bad !
+			// We'll talk about equality in DDD further in this course.
+			// TODO : Check equality
+			assertThat(libraryFromDB.get().getType()).isEqualTo(NATIONAL_LIBRARY_MONTREUIL.getType());
+		}
+
+		@Test
+		@DisplayName(" should return an error when creating a library with no director")
+		void test_create_2() {
+			// --------------- Given ---------------
+			final LibraryDTO national_library_montreuil_dto = new LibraryDTO(NATIONAL_LIBRARY_MONTREUIL.getType(),
+					new LibraryDTO.AddressDTO(NATIONAL_LIBRARY_MONTREUIL.getAddress().getNumber(),
+							NATIONAL_LIBRARY_MONTREUIL.getAddress().getStreet(),
+							NATIONAL_LIBRARY_MONTREUIL
+							.getAddress().getPostalCode(),
+							NATIONAL_LIBRARY_MONTREUIL.getAddress().getCity()),
+					null,
+					NATIONAL_LIBRARY_MONTREUIL.getBooks().stream().map(book -> new LibraryDTO.BookDTO(book.getTitle(),
+							book.getAuthor(), book.getNumberOfPage(), book.getLiteraryGenre()))
+					.collect(Collectors.toList()));
+
+			// --------------- When ---------------
+			// I do a request on /libraries
+			final ResponseEntity<String> response = restTemplate.postForEntity("/libraries",
+					national_library_montreuil_dto, String.class);
+
+			// --------------- Then ---------------
+			// I get a success code, and a new library in the database with the given ID
+			assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+			assertThat(response.getBody()).isNotNull().contains(ErrorCodes.LIBRARY_MUST_HAVE_A_DIRECTOR);
+		}
 	}
 
 	@Nested

@@ -9,7 +9,6 @@ import fr.training.spring.Library.domain.library.Library;
 import fr.training.spring.Library.domain.library.book.Book;
 
 public final class LibraryAdapter {
-
 	private LibraryAdapter() {
 	}
 

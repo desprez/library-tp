@@ -2,6 +2,8 @@ package fr.training.spring.Library.exposition;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,7 +26,7 @@ public class LibraryResource {
 
 	@PostMapping("/libraries")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Long createLibrary(@RequestBody final LibraryDTO libraryDTO) {
+	public Long createLibrary(@Valid @RequestBody final LibraryDTO libraryDTO) {
 		return libraryService.create(LibraryAdapter.transformToLibrary(libraryDTO));
 	}
 

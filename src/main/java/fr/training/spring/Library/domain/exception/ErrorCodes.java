@@ -1,6 +1,10 @@
 package fr.training.spring.Library.domain.exception;
+
 public final class ErrorCodes {
-	private ErrorCodes() {}
+
+	private ErrorCodes() {
+	}
 
 	public static final String LIBRARY_NOT_FOUND = "ERR_0001";
+	public static final String LIBRARY_MUST_HAVE_A_DIRECTOR = "ERR_0002";
 }
