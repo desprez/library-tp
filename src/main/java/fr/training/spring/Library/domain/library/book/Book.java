@@ -1,5 +1,8 @@
 package fr.training.spring.Library.domain.library.book;
 
+import fr.training.spring.Library.domain.ddd.DDD;
+
+@DDD.Entity
 public class Book {
 
 	private Long id;
@@ -12,9 +15,11 @@ public class Book {
 
 	private LiteraryGenre literaryGenre;
 
-	private Book() {}
+	private Book() {
+	}
 
-	public Book(final Long id, final String title, final String author, final int numberOfPage, final LiteraryGenre literaryGenre) {
+	public Book(final Long id, final String title, final String author, final int numberOfPage,
+			final LiteraryGenre literaryGenre) {
 		this.id = id;
 		this.title = title;
 		this.author = author;
@@ -40,5 +45,30 @@ public class Book {
 
 	public LiteraryGenre getLiteraryGenre() {
 		return literaryGenre;
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (obj == null) {
+			return false;
+		}
+
+		if (!this.getClass().isAssignableFrom(obj.getClass())) {
+			return false;
+		}
+
+		final Book that = this.getClass().cast(obj);
+
+		return that.id.equals(id);
+	}
+
+	@Override
+	public int hashCode() {
+		return id.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%s{id:%s)", this.getClass().getSimpleName(), id);
 	}
 }

@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import fr.training.spring.Library.domain.ddd.DDD;
 import fr.training.spring.Library.domain.library.Library;
 import fr.training.spring.Library.domain.library.LibraryRepository;
 import fr.training.spring.Library.domain.library.Type;
 
+
+@DDD.ApplicationService
 @Transactional
 @Service
 public class LibraryService {

@@ -6,12 +6,14 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import fr.training.spring.Library.domain.ddd.DDD;
 import fr.training.spring.Library.domain.exception.ErrorCodes;
 import fr.training.spring.Library.domain.exception.LibraryNotFoundException;
 import fr.training.spring.Library.domain.library.Library;
 import fr.training.spring.Library.domain.library.LibraryRepository;
 import fr.training.spring.Library.domain.library.Type;
 
+@DDD.RepositoryImpl
 @Repository
 public class LibraryRepositoryImpl implements LibraryRepository {
 

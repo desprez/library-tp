@@ -2,6 +2,9 @@ package fr.training.spring.Library.domain.library;
 
 import java.util.List;
 
+import fr.training.spring.Library.domain.ddd.DDD;
+
+@DDD.Repository
 public interface LibraryRepository {
 
 	Long save(Library library);

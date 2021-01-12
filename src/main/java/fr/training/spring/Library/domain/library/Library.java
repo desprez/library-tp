@@ -2,7 +2,10 @@ package fr.training.spring.Library.domain.library;
 
 import java.util.List;
 
+import fr.training.spring.Library.domain.ddd.DDD;
 import fr.training.spring.Library.domain.library.book.Book;
+
+@DDD.Entity
 public class Library {
 
 	private Long id;
@@ -15,9 +18,11 @@ public class Library {
 
 	private List<Book> books;
 
-	public Library() {}
+	public Library() {
+	}
 
-	public Library(final Long id, final Type type, final Address address, final Director director, final List<Book> books) {
+	public Library(final Long id, final Type type, final Address address, final Director director,
+			final List<Book> books) {
 		this.id = id;
 		this.type = type;
 		this.address = address;
@@ -55,5 +60,30 @@ public class Library {
 
 	public List<Book> getBooks() {
 		return books;
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (obj == null) {
+			return false;
+		}
+
+		if (!this.getClass().isAssignableFrom(obj.getClass())) {
+			return false;
+		}
+
+		final Library that = this.getClass().cast(obj);
+
+		return that.id.equals(id);
+	}
+
+	@Override
+	public int hashCode() {
+		return id.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%s{id:%s)", this.getClass().getSimpleName(), id);
 	}
 }

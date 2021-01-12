@@ -1,10 +1,14 @@
 package fr.training.spring.Library.domain.library;
 
+import java.util.Objects;
+
 import org.springframework.util.StringUtils;
 
+import fr.training.spring.Library.domain.ddd.DDD;
 import fr.training.spring.Library.domain.exception.ErrorCodes;
 import fr.training.spring.Library.domain.exception.ValidationException;
 
+@DDD.ValueObject
 public class Director {
 
 	private String surname;
@@ -31,5 +35,22 @@ public class Director {
 
 	public String getName() {
 		return name;
+	}
+
+	@Override
+	public boolean equals(final Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		final Director director = (Director) o;
+		return surname.equals(director.surname) && name.equals(director.name);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(surname, name);
 	}
 }
