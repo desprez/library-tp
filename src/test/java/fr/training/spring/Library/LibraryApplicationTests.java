@@ -26,6 +26,7 @@ import fr.training.spring.Library.domain.library.Library;
 import fr.training.spring.Library.domain.library.Type;
 import fr.training.spring.Library.exposition.LibraryDTO;
 import fr.training.spring.Library.infrastructure.LibraryDAO;
+import fr.training.spring.Library.infrastructure.LibraryJPA;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DisplayName("tp-spring-0")
@@ -83,7 +84,7 @@ class LibraryApplicationTests {
 	@DisplayName("Api GET:/libraries should return all 5 libraries")
 	void test_read_one() {
 		// --------------- Given ---------------
-		final Library dummyLibrary = databaseTestHelper.createDummyLibrary();
+		final LibraryJPA dummyLibrary = databaseTestHelper.createDummyLibrary();
 
 		// --------------- When ---------------
 		// I do a request on /libraries
@@ -124,7 +125,7 @@ class LibraryApplicationTests {
 		final Long idCreated = response.getBody();
 		assertThat(idCreated).isNotNull().isPositive();
 
-		final Optional<Library> libraryFromDB = libraryDAO.findById(idCreated);
+		final Optional<LibraryJPA> libraryFromDB = libraryDAO.findById(idCreated);
 		assertThat(libraryFromDB).isNotEmpty();
 
 		// Due to equals method not being implemented, we would need to compare field by
@@ -141,14 +142,14 @@ class LibraryApplicationTests {
 		@DisplayName(" should update the library when passing on a correct ID")
 		void test_update_1() {
 			// --------------- Given ---------------
-			final Library dummyLibrary = databaseTestHelper.createDummyLibrary();
+			final LibraryJPA dummyLibrary = databaseTestHelper.createDummyLibrary();
 			final Long idOfCreatedLibrary = dummyLibrary.getId();
 
 			// --------------- When ---------------
 			restTemplate.put("/libraries/" + idOfCreatedLibrary, SCHOOL_LIBRARY_PARIS);
 
 			// --------------- Then ---------------
-			final Optional<Library> libraryFromDB = libraryDAO.findById(idOfCreatedLibrary);
+			final Optional<LibraryJPA> libraryFromDB = libraryDAO.findById(idOfCreatedLibrary);
 			assertThat(libraryFromDB).isNotEmpty();
 
 			// TODO : Check equality
@@ -178,14 +179,14 @@ class LibraryApplicationTests {
 		@DisplayName(" should delete the library when passing on a correct ID")
 		void test_delete_1() {
 			// --------------- Given ---------------
-			final Library librarySaved = databaseTestHelper.createDummyLibrary();
+			final LibraryJPA librarySaved = databaseTestHelper.createDummyLibrary();
 			final Long idOfSavedLibrary = librarySaved.getId();
 
 			// --------------- When ---------------
 			restTemplate.delete("/libraries/" + idOfSavedLibrary);
 
 			// --------------- Then ---------------
-			final Optional<Library> libraryFromDB = libraryDAO.findById(idOfSavedLibrary);
+			final Optional<LibraryJPA> libraryFromDB = libraryDAO.findById(idOfSavedLibrary);
 			assertThat(libraryFromDB).isEmpty();
 		}
 

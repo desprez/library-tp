@@ -19,11 +19,11 @@ public final class LibraryAdapter {
 
 		final Director director = new Director(libraryDTO.directorDTO.surname, libraryDTO.directorDTO.name);
 
-		return new Library(libraryDTO.type, address, director, transformToBook(libraryDTO.bookDTOList));
+		return new Library(null, libraryDTO.type, address, director, transformToBook(libraryDTO.bookDTOList));
 	}
 
 	public static List<Book> transformToBook(final List<LibraryDTO.BookDTO> bookDTO) {
-		return bookDTO.stream().map(b -> new Book(b.title, b.author, b.numberOfPage, b.literaryGenre))
+		return bookDTO.stream().map(b -> new Book(null, b.title, b.author, b.numberOfPage, b.literaryGenre))
 				.collect(Collectors.toList());
 	}
 
