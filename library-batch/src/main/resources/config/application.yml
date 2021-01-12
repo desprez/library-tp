@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: LibraryAppBatch
+  profiles:
+    active: local
+  jta:
+    enabled: false
+  jpa:
+    mapping-resources: 
+      - META-INF/common.orm.xml
+  cache:
+    jcache:
+      config: classpath:cache/ehcache.xml
+  batch:
+    initialize-schema: always
+#    job:
+#      enabled: false  
+      
+# Logging Configurations
+logging:
+  level:
+    ROOT: INFO
+    org.springframework: INFO
+    org.springframework.boot.context.config.ConfigFileApplicationListener: DEBUG
+    org.springframework.boot.autoconfigure.batch.JobLauncherCommandLineRunner: DEBUG
+

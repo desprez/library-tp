@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: TODO
+    username: TODO
+    password: 
+    driver-class-name: org.postgresql.Driver
+  hibernate:
+    ddl-auto: validate
+    
+# Logging Configurations
+
+#Monitoring endpoints   
+management:
+   endpoints:
+      web:
+         exposure:
+            include: info, health

@@ -1,0 +1,1 @@
+-- SQL script for create tables, sequences and index (rename with SQL extension to activate)
