@@ -16,6 +16,12 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import fr.training.spring.Library.domain.Address;
+import fr.training.spring.Library.domain.Director;
+import fr.training.spring.Library.domain.Library;
+import fr.training.spring.Library.domain.Type;
+import fr.training.spring.Library.infrastructure.LibraryDAO;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DisplayName("tp-spring-0")
 class LibraryApplicationTests {

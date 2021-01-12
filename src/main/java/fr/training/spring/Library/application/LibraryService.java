@@ -1,10 +1,14 @@
-package fr.training.spring.Library;
+package fr.training.spring.Library.application;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import fr.training.spring.Library.domain.Library;
+import fr.training.spring.Library.domain.Type;
+import fr.training.spring.Library.infrastructure.LibraryDAO;
 
 @Transactional
 @Service
