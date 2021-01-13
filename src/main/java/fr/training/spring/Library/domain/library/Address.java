@@ -1,4 +1,4 @@
-package fr.training.spring.library.domain;
+package fr.training.spring.library.domain.library;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -18,7 +18,8 @@ public class Address {
 	@Column(name = "ADDRESS_CITY")
 	private String city;
 
-	public Address() {}
+	public Address() {
+	}
 
 	public Address(final int number, final String street, final int postalCode, final String city) {
 		this.number = number;

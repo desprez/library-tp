@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.training.spring.library.domain.Library;
-import fr.training.spring.library.domain.Type;
 import fr.training.spring.library.domain.exception.LibraryNotFoundException;
+import fr.training.spring.library.domain.library.Library;
+import fr.training.spring.library.domain.library.Type;
 import fr.training.spring.library.infrastructure.LibraryDAO;
 
 @Transactional
@@ -24,7 +24,8 @@ public class LibraryService {
 	}
 
 	public Library obtain(final Long id) {
-		return libraryDAO.findById(id).orElseThrow(() -> new LibraryNotFoundException("Could not obtain library "+id));
+		return libraryDAO.findById(id)
+				.orElseThrow(() -> new LibraryNotFoundException("Could not obtain library " + id));
 	}
 
 	public List<Library> listAll() {

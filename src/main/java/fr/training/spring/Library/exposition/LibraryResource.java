@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.training.spring.library.application.LibraryService;
-import fr.training.spring.library.domain.Library;
-import fr.training.spring.library.domain.Type;
+import fr.training.spring.library.domain.library.Library;
+import fr.training.spring.library.domain.library.Type;
 
 @RestController
 public class LibraryResource {

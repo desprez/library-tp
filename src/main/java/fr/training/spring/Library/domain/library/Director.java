@@ -1,4 +1,4 @@
-package fr.training.spring.library.domain;
+package fr.training.spring.library.domain.library;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
