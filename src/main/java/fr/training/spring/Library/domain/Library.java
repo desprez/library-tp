@@ -7,8 +7,10 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity(name = "LIBRARY")
+@Entity
+@Table(name="LIBRARY")
 public class Library {
 
 	@Id
