@@ -24,7 +24,8 @@ public class LibraryService {
 	}
 
 	public Library obtain(final Long id) {
-		return libraryDAO.findById(id).orElseThrow(() -> new LibraryNotFoundException("Could not obtain library "+id));
+		return libraryDAO.findById(id)
+				.orElseThrow(() -> new LibraryNotFoundException("Could not obtain library " + id));
 	}
 
 	public List<Library> listAll() {
