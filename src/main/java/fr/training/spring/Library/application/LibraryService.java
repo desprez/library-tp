@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.training.spring.library.domain.Library;
 import fr.training.spring.library.domain.Type;
+import fr.training.spring.library.domain.exception.LibraryNotFoundException;
 import fr.training.spring.library.infrastructure.LibraryDAO;
 
 @Transactional
@@ -23,7 +24,7 @@ public class LibraryService {
 	}
 
 	public Library obtain(final Long id) {
-		return libraryDAO.findById(id).orElseThrow(() -> new RuntimeException("LIBRARY NOT FOUND"));
+		return libraryDAO.findById(id).orElseThrow(() -> new LibraryNotFoundException("Could not obtain library "+id));
 	}
 
 	public List<Library> listAll() {
@@ -42,10 +43,10 @@ public class LibraryService {
 	}
 
 	public List<Library> listAllByType(final Type type) {
-		return libraryDAO.findByType(type);
+		return libraryDAO.findLibraryByType(type);
 	}
 
 	public List<Library> listAllByDirectorName(final String surname) {
-		return libraryDAO.searchByDirectorNameQuery(surname);
+		return libraryDAO.findLibraryByDirectorSurname(surname);
 	}
 }
