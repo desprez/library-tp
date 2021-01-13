@@ -1,9 +1,9 @@
-package fr.training.spring.Library.domain.library;
+package fr.training.spring.library.domain.library;
 
 import java.util.List;
 
-import fr.training.spring.Library.domain.ddd.DDD;
-import fr.training.spring.Library.domain.library.book.Book;
+import fr.training.spring.library.domain.ddd.DDD;
+import fr.training.spring.library.domain.library.book.Book;
 
 @DDD.Entity
 public class Library {

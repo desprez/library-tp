@@ -1,12 +1,12 @@
-package fr.training.spring.Library.domain.library;
+package fr.training.spring.library.domain.library;
 
 import java.util.Objects;
 
 import org.springframework.util.StringUtils;
 
-import fr.training.spring.Library.domain.ddd.DDD;
-import fr.training.spring.Library.domain.exception.ErrorCodes;
-import fr.training.spring.Library.domain.exception.ValidationException;
+import fr.training.spring.library.domain.ddd.DDD;
+import fr.training.spring.library.domain.exception.ErrorCodes;
+import fr.training.spring.library.domain.exception.ValidationException;
 
 @DDD.ValueObject
 public class Director {

@@ -1,8 +1,8 @@
-package fr.training.spring.Library.domain.library;
+package fr.training.spring.library.domain.library;
 
 import java.util.Objects;
 
-import fr.training.spring.Library.domain.ddd.DDD;
+import fr.training.spring.library.domain.ddd.DDD;
 
 @DDD.ValueObject
 public class Address {

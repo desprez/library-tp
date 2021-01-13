@@ -1,4 +1,4 @@
-package fr.training.spring.Library.infrastructure;
+package fr.training.spring.library.infrastructure;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -6,12 +6,12 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import fr.training.spring.Library.domain.ddd.DDD;
-import fr.training.spring.Library.domain.exception.ErrorCodes;
-import fr.training.spring.Library.domain.exception.LibraryNotFoundException;
-import fr.training.spring.Library.domain.library.Library;
-import fr.training.spring.Library.domain.library.LibraryRepository;
-import fr.training.spring.Library.domain.library.Type;
+import fr.training.spring.library.domain.ddd.DDD;
+import fr.training.spring.library.domain.exception.ErrorCodes;
+import fr.training.spring.library.domain.exception.LibraryNotFoundException;
+import fr.training.spring.library.domain.library.Library;
+import fr.training.spring.library.domain.library.LibraryRepository;
+import fr.training.spring.library.domain.library.Type;
 
 @DDD.RepositoryImpl
 @Repository

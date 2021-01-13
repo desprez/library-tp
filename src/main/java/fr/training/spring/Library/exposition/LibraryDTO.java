@@ -1,4 +1,4 @@
-package fr.training.spring.Library.exposition;
+package fr.training.spring.library.exposition;
 
 import java.util.Collections;
 import java.util.List;
@@ -7,9 +7,9 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import fr.training.spring.Library.domain.exception.ErrorCodes;
-import fr.training.spring.Library.domain.library.Type;
-import fr.training.spring.Library.domain.library.book.LiteraryGenre;
+import fr.training.spring.library.domain.exception.ErrorCodes;
+import fr.training.spring.library.domain.library.Type;
+import fr.training.spring.library.domain.library.book.LiteraryGenre;
 
 //Here, encapsulation can be debated because the internal structure does not have to be hidden
 //and the DTO is not supposed to have any kind of intelligence

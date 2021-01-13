@@ -1,6 +1,6 @@
-package fr.training.spring.Library.domain.library.book;
+package fr.training.spring.library.domain.library.book;
 
-import fr.training.spring.Library.domain.ddd.DDD;
+import fr.training.spring.library.domain.ddd.DDD;
 
 @DDD.Entity
 public class Book {

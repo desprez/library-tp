@@ -1,8 +1,8 @@
-package fr.training.spring.Library.domain.ddd;
+package fr.training.spring.library.domain.ddd;
 
-import static fr.training.spring.Library.domain.ddd.DDD.Layer.APPLICATION;
-import static fr.training.spring.Library.domain.ddd.DDD.Layer.DOMAIN;
-import static fr.training.spring.Library.domain.ddd.DDD.Layer.INFRASTRUCTURE;
+import static fr.training.spring.library.domain.ddd.DDD.Layer.APPLICATION;
+import static fr.training.spring.library.domain.ddd.DDD.Layer.DOMAIN;
+import static fr.training.spring.library.domain.ddd.DDD.Layer.INFRASTRUCTURE;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.PACKAGE;

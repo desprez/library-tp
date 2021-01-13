@@ -1,13 +1,13 @@
-package fr.training.spring.Library;
+package fr.training.spring.library;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-import fr.training.spring.Library.domain.library.Address;
-import fr.training.spring.Library.domain.library.Director;
-import fr.training.spring.Library.domain.library.Library;
-import fr.training.spring.Library.domain.library.Type;
+import fr.training.spring.library.domain.library.Address;
+import fr.training.spring.library.domain.library.Director;
+import fr.training.spring.library.domain.library.Library;
+import fr.training.spring.library.domain.library.Type;
 
 public class EqualityTests {
 
