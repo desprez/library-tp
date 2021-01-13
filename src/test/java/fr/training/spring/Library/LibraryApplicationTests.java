@@ -20,6 +20,7 @@ import fr.training.spring.library.domain.Address;
 import fr.training.spring.library.domain.Director;
 import fr.training.spring.library.domain.Library;
 import fr.training.spring.library.domain.Type;
+import fr.training.spring.library.domain.exception.ErrorCodes;
 import fr.training.spring.library.infrastructure.LibraryDAO;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -140,16 +141,15 @@ class LibraryApplicationTests {
 		@DisplayName(" should send an error when passing on an incorrect ID")
 		void test_update_2() {
 			// --------------- Given ---------------
-			final Library librarySaved = libraryDAO.save(NATIONAL_LIBRARY_MONTREUIL);
-			final Long idOfSavedLibrary = librarySaved.getId();
+			libraryDAO.save(NATIONAL_LIBRARY_MONTREUIL);
 
 			// --------------- When ---------------
 			final ResponseEntity<String> response = restTemplate.exchange("/libraries/" + Long.MAX_VALUE,
 					HttpMethod.PUT, new HttpEntity<>(SCHOOL_LIBRARY_PARIS), String.class);
 
 			// --------------- Then ---------------
-			assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
-			assertThat(response.getBody()).contains("LIBRARY NOT FOUND");
+			assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+			assertThat(response.getBody()).contains(ErrorCodes.LIBRARY_NOT_FOUND);
 		}
 	}
 
@@ -175,16 +175,15 @@ class LibraryApplicationTests {
 		@DisplayName(" should send an error when passing on an incorrect ID")
 		void test_delete_2() {
 			// --------------- Given ---------------
-			final Library librarySaved = libraryDAO.save(NATIONAL_LIBRARY_MONTREUIL);
-			final Long idOfSavedLibrary = librarySaved.getId();
+			libraryDAO.save(NATIONAL_LIBRARY_MONTREUIL);
 
 			// --------------- When ---------------
 			final ResponseEntity<String> response = restTemplate.exchange("/libraries/" + Long.MAX_VALUE,
 					HttpMethod.DELETE, null, String.class);
 
 			// --------------- Then ---------------
-			assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
-			assertThat(response.getBody()).contains("LIBRARY NOT FOUND");
+			assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+			assertThat(response.getBody()).contains(ErrorCodes.LIBRARY_NOT_FOUND);
 		}
 	}
 
