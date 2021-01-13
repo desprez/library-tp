@@ -1,4 +1,4 @@
-package fr.training.spring.Library;
+package fr.training.spring.library;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,11 +16,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import fr.training.spring.Library.domain.Address;
-import fr.training.spring.Library.domain.Director;
-import fr.training.spring.Library.domain.Library;
-import fr.training.spring.Library.domain.Type;
-import fr.training.spring.Library.infrastructure.LibraryDAO;
+import fr.training.spring.library.domain.Address;
+import fr.training.spring.library.domain.Director;
+import fr.training.spring.library.domain.Library;
+import fr.training.spring.library.domain.Type;
+import fr.training.spring.library.infrastructure.LibraryDAO;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DisplayName("tp-spring-0")

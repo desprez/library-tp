@@ -1,4 +1,4 @@
-package fr.training.spring.Library.exposition;
+package fr.training.spring.library.exposition;
 
 import java.util.List;
 
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.training.spring.Library.application.LibraryService;
-import fr.training.spring.Library.domain.Library;
-import fr.training.spring.Library.domain.Type;
+import fr.training.spring.library.application.LibraryService;
+import fr.training.spring.library.domain.Library;
+import fr.training.spring.library.domain.Type;
 
 @RestController
 public class LibraryResource {
