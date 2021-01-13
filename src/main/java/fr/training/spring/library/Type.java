@@ -1,4 +1,4 @@
-package fr.training.spring.Library;
+package fr.training.spring.library;
 
 public enum Type {
 	ASSOCIATIVE,
