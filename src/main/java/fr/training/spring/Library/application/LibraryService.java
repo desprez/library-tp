@@ -1,4 +1,4 @@
-package fr.training.spring.Library.application;
+package fr.training.spring.library.application;
 
 import java.util.List;
 
@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.training.spring.Library.domain.library.Library;
-import fr.training.spring.Library.domain.library.LibraryRepository;
-import fr.training.spring.Library.domain.library.Type;
+import fr.training.spring.library.domain.library.Library;
+import fr.training.spring.library.domain.library.LibraryRepository;
+import fr.training.spring.library.domain.library.Type;
 
 @Transactional
 @Service

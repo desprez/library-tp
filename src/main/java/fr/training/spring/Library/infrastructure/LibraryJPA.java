@@ -1,4 +1,4 @@
-package fr.training.spring.Library.infrastructure;
+package fr.training.spring.library.infrastructure;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,11 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
-import fr.training.spring.Library.domain.library.Address;
-import fr.training.spring.Library.domain.library.Director;
-import fr.training.spring.Library.domain.library.Library;
-import fr.training.spring.Library.domain.library.Type;
-import fr.training.spring.Library.domain.library.book.Book;
+import fr.training.spring.library.domain.library.Address;
+import fr.training.spring.library.domain.library.Director;
+import fr.training.spring.library.domain.library.Library;
+import fr.training.spring.library.domain.library.Type;
+import fr.training.spring.library.domain.library.book.Book;
 
 @Entity(name = "LIBRARY")
 public class LibraryJPA {

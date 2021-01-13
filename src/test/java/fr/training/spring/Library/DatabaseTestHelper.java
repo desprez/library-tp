@@ -1,4 +1,4 @@
-package fr.training.spring.Library;
+package fr.training.spring.library;
 
 import java.util.Arrays;
 
@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.training.spring.Library.domain.library.Address;
-import fr.training.spring.Library.domain.library.Director;
-import fr.training.spring.Library.domain.library.Library;
-import fr.training.spring.Library.domain.library.Type;
-import fr.training.spring.Library.domain.library.book.Book;
-import fr.training.spring.Library.domain.library.book.LiteraryGenre;
-import fr.training.spring.Library.infrastructure.LibraryDAO;
-import fr.training.spring.Library.infrastructure.LibraryJPA;
+import fr.training.spring.library.domain.library.Address;
+import fr.training.spring.library.domain.library.Director;
+import fr.training.spring.library.domain.library.Library;
+import fr.training.spring.library.domain.library.Type;
+import fr.training.spring.library.domain.library.book.Book;
+import fr.training.spring.library.domain.library.book.LiteraryGenre;
+import fr.training.spring.library.infrastructure.LibraryDAO;
+import fr.training.spring.library.infrastructure.LibraryJPA;
 
 // I was forced to move the database setup to another class due to the transactional state of the test class :
 // Hibernate was lost when trying to save the same object multiple times in a non-transactional context

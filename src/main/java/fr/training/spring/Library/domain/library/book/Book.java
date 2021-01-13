@@ -1,4 +1,4 @@
-package fr.training.spring.Library.domain.library.book;
+package fr.training.spring.library.domain.library.book;
 
 public class Book {
 
