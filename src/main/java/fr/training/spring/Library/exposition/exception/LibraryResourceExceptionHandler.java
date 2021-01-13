@@ -1,4 +1,4 @@
-package fr.training.spring.Library.exposition.exception;
+package fr.training.spring.library.exposition.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import fr.training.spring.Library.domain.exception.LibraryNotFoundException;
-import fr.training.spring.Library.domain.exception.ValidationException;
+import fr.training.spring.library.domain.exception.LibraryNotFoundException;
+import fr.training.spring.library.domain.exception.ValidationException;
 
-@ControllerAdvice(basePackages = "fr.training.spring.Library")
+@ControllerAdvice(basePackages = "fr.training.spring.library")
 public class LibraryResourceExceptionHandler {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LibraryResourceExceptionHandler.class);

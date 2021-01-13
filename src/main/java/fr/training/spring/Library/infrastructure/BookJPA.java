@@ -1,4 +1,4 @@
-package fr.training.spring.Library.infrastructure;
+package fr.training.spring.library.infrastructure;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,8 +7,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import fr.training.spring.Library.domain.library.book.Book;
-import fr.training.spring.Library.domain.library.book.LiteraryGenre;
+import fr.training.spring.library.domain.library.book.Book;
+import fr.training.spring.library.domain.library.book.LiteraryGenre;
 
 @Entity(name = "BOOK")
 public class BookJPA {
