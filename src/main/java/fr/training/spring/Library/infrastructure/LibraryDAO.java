@@ -1,11 +1,11 @@
-package fr.training.spring.Library.infrastructure;
+package fr.training.spring.library.infrastructure;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import fr.training.spring.Library.domain.library.Library;
-import fr.training.spring.Library.domain.library.Type;
+import fr.training.spring.library.domain.library.Library;
+import fr.training.spring.library.domain.library.Type;
 
 public interface LibraryDAO extends JpaRepository<Library, Long> {
 

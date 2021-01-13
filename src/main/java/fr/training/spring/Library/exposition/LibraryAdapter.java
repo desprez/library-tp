@@ -1,12 +1,12 @@
-package fr.training.spring.Library.exposition;
+package fr.training.spring.library.exposition;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import fr.training.spring.Library.domain.library.Address;
-import fr.training.spring.Library.domain.library.Director;
-import fr.training.spring.Library.domain.library.Library;
-import fr.training.spring.Library.domain.library.book.Book;
+import fr.training.spring.library.domain.library.Address;
+import fr.training.spring.library.domain.library.Director;
+import fr.training.spring.library.domain.library.Library;
+import fr.training.spring.library.domain.library.book.Book;
 
 public final class LibraryAdapter {
 

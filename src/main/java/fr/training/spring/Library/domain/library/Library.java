@@ -1,4 +1,4 @@
-package fr.training.spring.Library.domain.library;
+package fr.training.spring.library.domain.library;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
-import fr.training.spring.Library.domain.library.book.Book;
+import fr.training.spring.library.domain.library.book.Book;
 
 @Entity(name = "LIBRARY")
 public class Library {

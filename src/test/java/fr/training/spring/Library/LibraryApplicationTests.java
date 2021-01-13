@@ -1,7 +1,7 @@
-package fr.training.spring.Library;
+package fr.training.spring.library;
 
-import static fr.training.spring.Library.DatabaseTestHelper.NATIONAL_LIBRARY_MONTREUIL;
-import static fr.training.spring.Library.DatabaseTestHelper.SCHOOL_LIBRARY_PARIS;
+import static fr.training.spring.library.DatabaseTestHelper.NATIONAL_LIBRARY_MONTREUIL;
+import static fr.training.spring.library.DatabaseTestHelper.SCHOOL_LIBRARY_PARIS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
@@ -21,11 +21,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import fr.training.spring.Library.domain.exception.ErrorCodes;
-import fr.training.spring.Library.domain.library.Library;
-import fr.training.spring.Library.domain.library.Type;
-import fr.training.spring.Library.exposition.LibraryDTO;
-import fr.training.spring.Library.infrastructure.LibraryDAO;
+import fr.training.spring.library.domain.exception.ErrorCodes;
+import fr.training.spring.library.domain.library.Library;
+import fr.training.spring.library.domain.library.Type;
+import fr.training.spring.library.exposition.LibraryDTO;
+import fr.training.spring.library.infrastructure.LibraryDAO;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DisplayName("tp-spring-0")
