@@ -1,4 +1,4 @@
-package fr.training.spring.Library;
+package fr.training.spring.library;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
