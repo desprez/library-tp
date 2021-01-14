@@ -30,6 +30,7 @@ import fr.training.spring.library.infrastructure.LibraryJPA;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DisplayName("tp-spring-0")
 class LibraryApplicationTests {
+
 	@Autowired
 	private TestRestTemplate restTemplate;
 
@@ -93,6 +94,7 @@ class LibraryApplicationTests {
 		// I get an list of all libraries and a response code 200
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(response.getBody().getId()).isEqualTo(dummyLibrary.getId());
+		assertThat(response.getBody().getBooks().size()).isEqualTo(dummyLibrary.getBooks().size());
 	}
 
 	@Nested

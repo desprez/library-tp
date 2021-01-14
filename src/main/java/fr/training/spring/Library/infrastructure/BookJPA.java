@@ -6,11 +6,13 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import fr.training.spring.library.domain.library.book.Book;
 import fr.training.spring.library.domain.library.book.LiteraryGenre;
 
-@Entity(name = "BOOK")
+@Entity
+@Table(name = "BOOK")
 public class BookJPA {
 
 	@Id
