@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import fr.training.spring.library.domain.exception.LibraryNotFoundException;
+import fr.training.spring.library.domain.exception.NotFoundException;
 import fr.training.spring.library.domain.exception.ValidationException;
 
 @ControllerAdvice(basePackages = "fr.training.spring.library")
@@ -18,8 +18,8 @@ public class LibraryResourceExceptionHandler {
 
 	@ResponseBody
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	@ExceptionHandler(LibraryNotFoundException.class)
-	public String libraryNotFound(final LibraryNotFoundException exception) {
+	@ExceptionHandler(NotFoundException.class)
+	public String libraryNotFound(final NotFoundException exception) {
 		final String codeErreur = exception.getErrorCode();
 		LOGGER.info("Error {} : {}", codeErreur, exception.getMessage());
 		return codeErreur;

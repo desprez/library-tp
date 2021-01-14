@@ -108,10 +108,10 @@ class LibraryApplicationTests {
 							NATIONAL_LIBRARY_MONTREUIL.getAddress().getStreet(),
 							NATIONAL_LIBRARY_MONTREUIL.getAddress().getPostalCode(),
 							NATIONAL_LIBRARY_MONTREUIL.getAddress().getCity()),
-					new LibraryDTO.DirectorDTO(
-							NATIONAL_LIBRARY_MONTREUIL.getDirector().getSurname(), NATIONAL_LIBRARY_MONTREUIL
-							.getDirector().getName()),
-					NATIONAL_LIBRARY_MONTREUIL.getBooks().stream().map(book -> new LibraryDTO.BookDTO(book.getTitle(),
+					new LibraryDTO.DirectorDTO(NATIONAL_LIBRARY_MONTREUIL.getDirector().getSurname(),
+							NATIONAL_LIBRARY_MONTREUIL.getDirector().getName()),
+					NATIONAL_LIBRARY_MONTREUIL
+					.getBooks().stream().map(book -> new LibraryDTO.BookDTO(book.getIsbn(), book.getTitle(),
 							book.getAuthor(), book.getNumberOfPage(), book.getLiteraryGenre()))
 					.collect(Collectors.toList()));
 
@@ -143,11 +143,11 @@ class LibraryApplicationTests {
 			final LibraryDTO national_library_montreuil_dto = new LibraryDTO(NATIONAL_LIBRARY_MONTREUIL.getType(),
 					new LibraryDTO.AddressDTO(NATIONAL_LIBRARY_MONTREUIL.getAddress().getNumber(),
 							NATIONAL_LIBRARY_MONTREUIL.getAddress().getStreet(),
-							NATIONAL_LIBRARY_MONTREUIL
-							.getAddress().getPostalCode(),
+							NATIONAL_LIBRARY_MONTREUIL.getAddress().getPostalCode(),
 							NATIONAL_LIBRARY_MONTREUIL.getAddress().getCity()),
 					null,
-					NATIONAL_LIBRARY_MONTREUIL.getBooks().stream().map(book -> new LibraryDTO.BookDTO(book.getTitle(),
+					NATIONAL_LIBRARY_MONTREUIL
+					.getBooks().stream().map(book -> new LibraryDTO.BookDTO(book.getIsbn(), book.getTitle(),
 							book.getAuthor(), book.getNumberOfPage(), book.getLiteraryGenre()))
 					.collect(Collectors.toList()));
 
