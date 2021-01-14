@@ -78,7 +78,7 @@ class LibraryApplicationTests {
 	}
 
 	@Test
-	@DisplayName("Api GET:/libraries should return all 5 libraries")
+	@DisplayName("Api GET:/libraries/{libraryId} should return the good one libraries")
 	void test_read_one() {
 		// --------------- Given ---------------
 		final Library dummyLibrary = databaseTestHelper.createDummyLibrary();
@@ -92,6 +92,7 @@ class LibraryApplicationTests {
 		// I get an list of all libraries and a response code 200
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(response.getBody().getId()).isEqualTo(dummyLibrary.getId());
+		assertThat(response.getBody().getBooks().size()).isEqualTo(dummyLibrary.getBooks().size());
 	}
 
 	@Test
@@ -149,8 +150,8 @@ class LibraryApplicationTests {
 			// Test data
 
 			// --------------- When ---------------
-			final ResponseEntity<String> response = restTemplate.exchange("/libraries/" + Long.MAX_VALUE, HttpMethod.PUT,
-					new HttpEntity<>(SCHOOL_LIBRARY_PARIS), String.class);
+			final ResponseEntity<String> response = restTemplate.exchange("/libraries/" + Long.MAX_VALUE,
+					HttpMethod.PUT, new HttpEntity<>(SCHOOL_LIBRARY_PARIS), String.class);
 
 			// --------------- Then ---------------
 			assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
@@ -183,8 +184,8 @@ class LibraryApplicationTests {
 			// Test data
 
 			// --------------- When ---------------
-			final ResponseEntity<String> response = restTemplate.exchange("/libraries/" + Long.MAX_VALUE, HttpMethod.DELETE,
-					null, String.class);
+			final ResponseEntity<String> response = restTemplate.exchange("/libraries/" + Long.MAX_VALUE,
+					HttpMethod.DELETE, null, String.class);
 
 			// --------------- Then ---------------
 			assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
@@ -214,8 +215,8 @@ class LibraryApplicationTests {
 		// Test data
 
 		// --------------- When ---------------
-		final ResponseEntity<Library[]> response = restTemplate.getForEntity("/libraries/director/surname/" + "Garfield",
-				Library[].class);
+		final ResponseEntity<Library[]> response = restTemplate
+				.getForEntity("/libraries/director/surname/" + "Garfield", Library[].class);
 
 		// --------------- Then ---------------
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);

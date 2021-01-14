@@ -73,4 +73,15 @@ public class Library {
 	public List<Book> getBooks() {
 		return books;
 	}
+
+	@Override
+	public String toString() {
+		final StringBuilder builder = new StringBuilder();
+		builder.append("Library [id=").append(id).append(", type=").append(type).append(", address=").append(address)
+		.append(", director=").append(director).append(", books=").append(books).append("]");
+		return builder.toString();
+	}
+
+
+
 }

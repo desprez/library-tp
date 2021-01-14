@@ -31,10 +31,14 @@ public class DatabaseTestHelper {
 			LiteraryGenre.FANTASTIC);
 	public static final Book LORDOFTHERINGS = new Book("9780261102385", "The Lord of the Rings", "J.R.R. Tolkien", 500,
 			LiteraryGenre.EPIC);
-	public static final Book HARRYPOTTER1 = new Book("9781408855652", "Harry Potter and the Sorcerer’s Stone", "J.K. Rowling", 200,
+	public static final Book HARRYPOTTER1 = new Book("9781408855652", "Harry Potter and the Sorcerer’s Stone",
+			"J.K. Rowling", 200, LiteraryGenre.FANTASTIC);
+	public static final Book DAVINCICODE = new Book("052556585X", "The Da Vinci Code", "Dan Brown", 300,
 			LiteraryGenre.FANTASTIC);
-	public static final Book DAVINCICODE = new Book("052556585X", "The Da Vinci Code", "Dan Brown", 300, LiteraryGenre.FANTASTIC);
 	public static final Book ILIUM = new Book("9780380817924", "Ilium", "Dan Simmons", 600, LiteraryGenre.FANTASTIC);
+
+	public static final Book SPRING_IN_ACTION = new Book("1617294942", "Spring in Action", "Craig Walls", 310,
+			LiteraryGenre.TECHNICAL);
 
 	public static final Library NATIONAL_LIBRARY_MONTREUIL = new Library(Type.NATIONAL,
 			new Address(1, "Rue de Montreuil1", 93101, "Montreuil"), new Director("Romain", "NOEL"), Arrays.asList());
@@ -49,8 +53,9 @@ public class DatabaseTestHelper {
 	public static final Library PUBLIC_LIBRARY_VINCENNES = new Library(Type.PUBLIC,
 			new Address(5, "Rue de Vincennes", 94200, "Vincennes"), new Director("Garfield", "LECHAT3"),
 			Arrays.asList(DAVINCICODE, ILIUM, LORDOFTHERINGS));
+
 	public static final Library DUMMY_LIBRARY = new Library(null, new Address(0, "DUMMY_STREET", 0, "DUMMY_CITY"),
-			new Director("DUMMY_NAME", "DUMMY_SURNAME"), Arrays.asList());
+			new Director("DUMMY_NAME", "DUMMY_SURNAME"), Arrays.asList(SPRING_IN_ACTION));
 
 	public void setup() {
 		libraryDAO.deleteAll();
