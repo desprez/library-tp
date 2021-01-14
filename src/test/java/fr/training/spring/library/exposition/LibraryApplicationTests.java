@@ -79,18 +79,18 @@ class LibraryApplicationTests {
 	}
 
 	@Test
-	@DisplayName("Api GET:/libraries should return all 5 libraries")
+	@DisplayName("Api GET:/libraries/{libraryId} should return the good one library")
 	void test_read_one() {
 		// --------------- Given ---------------
 		final Library dummyLibrary = databaseTestHelper.createDummyLibrary();
 
 		// --------------- When ---------------
-		// I do a request on /libraries
+		// I do a request on /libraries/ + existing id
 		final ResponseEntity<Library> response = restTemplate.getForEntity("/libraries/" + dummyLibrary.getId(),
 				Library.class);
 
 		// --------------- Then ---------------
-		// I get an list of all libraries and a response code 200
+		// I get a library and a response code 200
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(response.getBody().getId()).isEqualTo(dummyLibrary.getId());
 		assertThat(response.getBody().getBooks().size()).isEqualTo(dummyLibrary.getBooks().size());
