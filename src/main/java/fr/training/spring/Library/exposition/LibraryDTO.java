@@ -64,6 +64,8 @@ public class LibraryDTO {
 
 	public static class BookDTO {
 		@JsonProperty
+		final String isbn;
+		@JsonProperty
 		final String title;
 		@JsonProperty
 		final String author;
@@ -72,8 +74,9 @@ public class LibraryDTO {
 		@JsonProperty
 		final LiteraryGenre literaryGenre;
 
-		public BookDTO(final String title, final String author, final int numberOfPage,
+		public BookDTO(final String isbn, final String title, final String author, final int numberOfPage,
 				final LiteraryGenre literaryGenre) {
+			this.isbn = isbn;
 			this.title = title;
 			this.author = author;
 			this.numberOfPage = numberOfPage;

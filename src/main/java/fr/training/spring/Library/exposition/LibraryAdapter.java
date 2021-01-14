@@ -23,7 +23,7 @@ public final class LibraryAdapter {
 	}
 
 	public static List<Book> transformToBook(final List<LibraryDTO.BookDTO> bookDTO) {
-		return bookDTO.stream().map(b -> new Book(b.title, b.author, b.numberOfPage, b.literaryGenre))
+		return bookDTO.stream().map(b -> new Book(b.isbn, b.title, b.author, b.numberOfPage, b.literaryGenre))
 				.collect(Collectors.toList());
 	}
 
@@ -44,7 +44,7 @@ public final class LibraryAdapter {
 	}
 
 	public static LibraryDTO.BookDTO adaptToBookDTO(final Book book) {
-		return new LibraryDTO.BookDTO(book.getTitle(), book.getAuthor(), book.getNumberOfPage(),
+		return new LibraryDTO.BookDTO(book.getIsbn(), book.getTitle(), book.getAuthor(), book.getNumberOfPage(),
 				book.getLiteraryGenre());
 	}
 

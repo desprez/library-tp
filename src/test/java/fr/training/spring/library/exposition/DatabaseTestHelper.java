@@ -1,4 +1,4 @@
-package fr.training.spring.library;
+package fr.training.spring.library.exposition;
 
 import java.util.Arrays;
 
@@ -25,15 +25,16 @@ public class DatabaseTestHelper {
 	@Autowired
 	LibraryDAO libraryDAO;
 
-	public static final Book DONQUIXOTE = new Book("Don Quixote", "Miguel de Cervantes", 200, LiteraryGenre.TRAGEDY);
-	public static final Book ATALEOFTWOCITIES = new Book("A Tale of Two Cities", "Charles Dickens", 300,
+	public static final Book DONQUIXOTE = new Book("843762214X", "Don Quixote", "Miguel de Cervantes", 200,
+			LiteraryGenre.TRAGEDY);
+	public static final Book ATALEOFTWOCITIES = new Book("1657599086", "A Tale of Two Cities", "Charles Dickens", 300,
 			LiteraryGenre.FANTASTIC);
-	public static final Book LORDOFTHERINGS = new Book("The Lord of the Rings", "J.R.R. Tolkien", 500,
+	public static final Book LORDOFTHERINGS = new Book("9780261102385", "The Lord of the Rings", "J.R.R. Tolkien", 500,
 			LiteraryGenre.EPIC);
-	public static final Book HARRYPOTTER1 = new Book("Harry Potter and the Sorcerer’s Stone", "J.K. Rowling", 200,
+	public static final Book HARRYPOTTER1 = new Book("9781408855652", "Harry Potter and the Sorcerer’s Stone", "J.K. Rowling", 200,
 			LiteraryGenre.FANTASTIC);
-	public static final Book DAVINCICODE = new Book("The Da Vinci Code", "Dan Brown", 300, LiteraryGenre.FANTASTIC);
-	public static final Book ILIUM = new Book("Ilium", "Dan Simmons", 600, LiteraryGenre.FANTASTIC);
+	public static final Book DAVINCICODE = new Book("052556585X", "The Da Vinci Code", "Dan Brown", 300, LiteraryGenre.FANTASTIC);
+	public static final Book ILIUM = new Book("9780380817924", "Ilium", "Dan Simmons", 600, LiteraryGenre.FANTASTIC);
 
 	public static final Library NATIONAL_LIBRARY_MONTREUIL = new Library(Type.NATIONAL,
 			new Address(1, "Rue de Montreuil1", 93101, "Montreuil"), new Director("Romain", "NOEL"), Arrays.asList());
