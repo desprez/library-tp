@@ -18,6 +18,9 @@ public class Book {
 	@Column(name = "ID")
 	private Long id;
 
+	@Column(name = "ISBN")
+	private String isbn;
+
 	@Column(name = "TITLE")
 	private String title;
 
@@ -34,7 +37,9 @@ public class Book {
 	private Book() {
 	}
 
-	public Book(final String title, final String author, final int numberOfPage, final LiteraryGenre literaryGenre) {
+	public Book(final String isbn, final String title, final String author, final int numberOfPage,
+			final LiteraryGenre literaryGenre) {
+		this.isbn = isbn;
 		this.title = title;
 		this.author = author;
 		this.numberOfPage = numberOfPage;
@@ -43,6 +48,10 @@ public class Book {
 
 	public Long getId() {
 		return id;
+	}
+
+	public String getIsbn() {
+		return isbn;
 	}
 
 	public String getTitle() {
