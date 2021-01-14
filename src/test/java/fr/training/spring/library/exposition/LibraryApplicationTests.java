@@ -1,7 +1,7 @@
-package fr.training.spring.library;
+package fr.training.spring.library.exposition;
 
-import static fr.training.spring.library.DatabaseTestHelper.NATIONAL_LIBRARY_MONTREUIL;
-import static fr.training.spring.library.DatabaseTestHelper.SCHOOL_LIBRARY_PARIS;
+import static fr.training.spring.library.exposition.DatabaseTestHelper.NATIONAL_LIBRARY_MONTREUIL;
+import static fr.training.spring.library.exposition.DatabaseTestHelper.SCHOOL_LIBRARY_PARIS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;

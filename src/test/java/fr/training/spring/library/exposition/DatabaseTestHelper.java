@@ -1,4 +1,4 @@
-package fr.training.spring.library;
+package fr.training.spring.library.exposition;
 
 import java.util.Arrays;
 
