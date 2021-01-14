@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import fr.training.spring.library.domain.exception.ErrorCodes;
-import fr.training.spring.library.domain.exception.LibraryNotFoundException;
+import fr.training.spring.library.domain.exception.NotFoundException;
 import fr.training.spring.library.domain.library.Library;
 import fr.training.spring.library.domain.library.LibraryRepository;
 import fr.training.spring.library.domain.library.Type;
@@ -20,7 +20,8 @@ public class LibraryRepositoryImpl implements LibraryRepository {
 
 	@Override
 	public Library get(final Long id) {
-		return libraryDAO.findById(id).map(LibraryJPA::toLibrary).orElseThrow(() -> new LibraryNotFoundException(ErrorCodes.LIBRARY_NOT_FOUND));
+		return libraryDAO.findById(id).map(LibraryJPA::toLibrary).orElseThrow(
+				() -> new NotFoundException("Could not obtain library " + id, ErrorCodes.LIBRARY_NOT_FOUND));
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package fr.training.spring.library;
+package fr.training.spring.library.exposition;
 
 import java.util.Arrays;
 
@@ -26,12 +26,17 @@ public class DatabaseTestHelper {
 	@Autowired
 	LibraryDAO libraryDAO;
 
-	public static final Book DONQUIXOTE 		= new Book(null,"Don Quixote", "Miguel de Cervantes", 200, LiteraryGenre.TRAGEDY);
-	public static final Book ATALEOFTWOCITIES 	= new Book(null,"A Tale of Two Cities", "Charles Dickens", 300, LiteraryGenre.FANTASTIC);
-	public static final Book LORDOFTHERINGS     = new Book(null, "The Lord of the Rings", "J.R.R. Tolkien", 500, LiteraryGenre.EPIC);
-	public static final Book HARRYPOTTER1 		= new Book(null, "Harry Potter and the Sorcerer’s Stone", "J.K. Rowling", 200, LiteraryGenre.FANTASTIC);
-	public static final Book DAVINCICODE 		= new Book(null, "The Da Vinci Code", "Dan Brown", 300, LiteraryGenre.FANTASTIC);
-	public static final Book ILIUM              = new Book(null, "Ilium", "Dan Simmons", 600, LiteraryGenre.FANTASTIC);
+	public static final Book DONQUIXOTE = new Book(null, "843762214X", "Don Quixote", "Miguel de Cervantes", 200,
+			LiteraryGenre.TRAGEDY);
+	public static final Book ATALEOFTWOCITIES = new Book(null, "1657599086", "A Tale of Two Cities", "Charles Dickens", 300,
+			LiteraryGenre.FANTASTIC);
+	public static final Book LORDOFTHERINGS = new Book(null, "9780261102385", "The Lord of the Rings", "J.R.R. Tolkien", 500,
+			LiteraryGenre.EPIC);
+	public static final Book HARRYPOTTER1 = new Book(null, "9781408855652", "Harry Potter and the Sorcerer’s Stone", "J.K. Rowling", 200,
+			LiteraryGenre.FANTASTIC);
+	public static final Book DAVINCICODE = new Book(null, "052556585X", "The Da Vinci Code", "Dan Brown", 300, LiteraryGenre.FANTASTIC);
+	public static final Book ILIUM = new Book(null, "9780380817924", "Ilium", "Dan Simmons", 600, LiteraryGenre.FANTASTIC);
+
 
 	public static final Library NATIONAL_LIBRARY_MONTREUIL = new Library(null, Type.NATIONAL, new Address(1, "Rue de Montreuil1", 93101, "Montreuil"), new Director("Romain", "NOEL"), Arrays.asList());
 	public static final Library SCHOOL_LIBRARY_PARIS = new Library(null, Type.NATIONAL, new Address(2, "Rue de Montreuil2", 93102, "Montreuil2"), new Director("Garfield", "LECHAT1"), Arrays.asList(DONQUIXOTE, ATALEOFTWOCITIES));

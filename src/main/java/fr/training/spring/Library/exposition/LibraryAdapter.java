@@ -11,6 +11,7 @@ import fr.training.spring.library.domain.library.book.Book;
 public final class LibraryAdapter {
 
 	private LibraryAdapter() {
+
 	}
 
 	public static Library transformToLibrary(final LibraryDTO libraryDTO) {
@@ -23,7 +24,7 @@ public final class LibraryAdapter {
 	}
 
 	public static List<Book> transformToBook(final List<LibraryDTO.BookDTO> bookDTO) {
-		return bookDTO.stream().map(b -> new Book(null, b.title, b.author, b.numberOfPage, b.literaryGenre))
+		return bookDTO.stream().map(b -> new Book(null, b.isbn, b.title, b.author, b.numberOfPage, b.literaryGenre))
 				.collect(Collectors.toList());
 	}
 
@@ -44,7 +45,7 @@ public final class LibraryAdapter {
 	}
 
 	public static LibraryDTO.BookDTO adaptToBookDTO(final Book book) {
-		return new LibraryDTO.BookDTO(book.getTitle(), book.getAuthor(), book.getNumberOfPage(),
+		return new LibraryDTO.BookDTO(book.getIsbn(), book.getTitle(), book.getAuthor(), book.getNumberOfPage(),
 				book.getLiteraryGenre());
 	}
 

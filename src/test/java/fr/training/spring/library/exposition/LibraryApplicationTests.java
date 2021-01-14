@@ -1,7 +1,7 @@
-package fr.training.spring.library;
+package fr.training.spring.library.exposition;
 
-import static fr.training.spring.library.DatabaseTestHelper.NATIONAL_LIBRARY_MONTREUIL;
-import static fr.training.spring.library.DatabaseTestHelper.SCHOOL_LIBRARY_PARIS;
+import static fr.training.spring.library.exposition.DatabaseTestHelper.NATIONAL_LIBRARY_MONTREUIL;
+import static fr.training.spring.library.exposition.DatabaseTestHelper.SCHOOL_LIBRARY_PARIS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
@@ -24,7 +24,6 @@ import org.springframework.http.ResponseEntity;
 import fr.training.spring.library.domain.exception.ErrorCodes;
 import fr.training.spring.library.domain.library.Library;
 import fr.training.spring.library.domain.library.Type;
-import fr.training.spring.library.exposition.LibraryDTO;
 import fr.training.spring.library.infrastructure.LibraryDAO;
 import fr.training.spring.library.infrastructure.LibraryJPA;
 
@@ -110,10 +109,10 @@ class LibraryApplicationTests {
 						NATIONAL_LIBRARY_MONTREUIL.getAddress().getStreet(),
 						NATIONAL_LIBRARY_MONTREUIL.getAddress().getPostalCode(),
 						NATIONAL_LIBRARY_MONTREUIL.getAddress().getCity()),
-				new LibraryDTO.DirectorDTO(
-						NATIONAL_LIBRARY_MONTREUIL.getDirector().getSurname(), NATIONAL_LIBRARY_MONTREUIL.getDirector()
-						.getName()),
-				NATIONAL_LIBRARY_MONTREUIL.getBooks().stream().map(book -> new LibraryDTO.BookDTO(book.getTitle(),
+				new LibraryDTO.DirectorDTO(NATIONAL_LIBRARY_MONTREUIL.getDirector().getSurname(),
+						NATIONAL_LIBRARY_MONTREUIL.getDirector().getName()),
+				NATIONAL_LIBRARY_MONTREUIL
+				.getBooks().stream().map(book -> new LibraryDTO.BookDTO(book.getIsbn(), book.getTitle(),
 						book.getAuthor(), book.getNumberOfPage(), book.getLiteraryGenre()))
 				.collect(Collectors.toList()));
 		final ResponseEntity<Long> response = restTemplate.postForEntity("/libraries", mantional_library_montreuil_dto,
