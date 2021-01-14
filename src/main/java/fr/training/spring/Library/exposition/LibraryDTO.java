@@ -6,7 +6,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import fr.training.spring.library.domain.library.Type;
-import fr.training.spring.library.domain.library.book.LiteraryGenre;
 
 //Here, encapsulation can be debated because the internal structure does not have to be hidden
 //and the DTO is not supposed to have any kind of intelligence
@@ -32,55 +31,9 @@ public class LibraryDTO {
 		this.bookDTOList = Collections.unmodifiableList(bookDTOList);
 	}
 
-	public static class DirectorDTO {
-		@JsonProperty
-		final String surname;
-		@JsonProperty
-		final String name;
 
-		public DirectorDTO(final String surname, final String name) {
-			this.surname = surname;
-			this.name = name;
-		}
-	}
 
-	public static class AddressDTO {
-		@JsonProperty
-		final int number;
-		@JsonProperty
-		final String street;
-		@JsonProperty
-		final int postalCode;
-		@JsonProperty
-		final String city;
 
-		public AddressDTO(final int number, final String street, final int postalCode, final String city) {
-			this.number = number;
-			this.street = street;
-			this.postalCode = postalCode;
-			this.city = city;
-		}
-	}
 
-	public static class BookDTO {
-		@JsonProperty
-		final String isbn;
-		@JsonProperty
-		final String title;
-		@JsonProperty
-		final String author;
-		@JsonProperty
-		final int numberOfPage;
-		@JsonProperty
-		final LiteraryGenre literaryGenre;
 
-		public BookDTO( final String isbn, final String title, final String author, final int numberOfPage,
-				final LiteraryGenre literaryGenre) {
-			this.isbn = isbn;
-			this.title = title;
-			this.author = author;
-			this.numberOfPage = numberOfPage;
-			this.literaryGenre = literaryGenre;
-		}
-	}
 }
