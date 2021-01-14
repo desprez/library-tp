@@ -1,10 +1,10 @@
 package fr.training.spring.library.domain.exception;
 
-public class ValidationException extends BusinessException {
+public class NotFoundException extends BusinessException {
 
 	private static final long serialVersionUID = 1L;
 
-	public ValidationException(final String message, final String errorCode) {
+	public NotFoundException(final String message, final String errorCode) {
 		super(message, errorCode);
 	}
 

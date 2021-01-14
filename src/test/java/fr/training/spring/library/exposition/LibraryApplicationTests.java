@@ -1,7 +1,7 @@
-package fr.training.spring.library;
+package fr.training.spring.library.exposition;
 
-import static fr.training.spring.library.DatabaseTestHelper.NATIONAL_LIBRARY_MONTREUIL;
-import static fr.training.spring.library.DatabaseTestHelper.SCHOOL_LIBRARY_PARIS;
+import static fr.training.spring.library.exposition.DatabaseTestHelper.NATIONAL_LIBRARY_MONTREUIL;
+import static fr.training.spring.library.exposition.DatabaseTestHelper.SCHOOL_LIBRARY_PARIS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
@@ -24,13 +24,13 @@ import org.springframework.http.ResponseEntity;
 import fr.training.spring.library.domain.exception.ErrorCodes;
 import fr.training.spring.library.domain.library.Library;
 import fr.training.spring.library.domain.library.Type;
-import fr.training.spring.library.exposition.LibraryDTO;
 import fr.training.spring.library.infrastructure.LibraryDAO;
 import fr.training.spring.library.infrastructure.LibraryJPA;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DisplayName("tp-spring-0")
 class LibraryApplicationTests {
+
 	@Autowired
 	private TestRestTemplate restTemplate;
 
@@ -80,20 +80,21 @@ class LibraryApplicationTests {
 	}
 
 	@Test
-	@DisplayName("Api GET:/libraries should return all 5 libraries")
+	@DisplayName("Api GET:/libraries/{libraryId} should return the good one library")
 	void test_read_one() {
 		// --------------- Given ---------------
 		final LibraryJPA dummyLibrary = databaseTestHelper.createDummyLibrary();
 
 		// --------------- When ---------------
-		// I do a request on /libraries
+		// I do a request on /libraries/ + existing id
 		final ResponseEntity<Library> response = restTemplate.getForEntity("/libraries/" + dummyLibrary.getId(),
 				Library.class);
 
 		// --------------- Then ---------------
-		// I get an list of all libraries and a response code 200
+		// I get a library and a response code 200
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(response.getBody().getId()).isEqualTo(dummyLibrary.getId());
+		assertThat(response.getBody().getBooks().size()).isEqualTo(dummyLibrary.getBooks().size());
 	}
 
 	@Nested
@@ -105,14 +106,14 @@ class LibraryApplicationTests {
 		void test_create_1() {
 			// --------------- Given ---------------
 			final LibraryDTO national_library_montreuil_dto = new LibraryDTO(NATIONAL_LIBRARY_MONTREUIL.getType(),
-					new LibraryDTO.AddressDTO(NATIONAL_LIBRARY_MONTREUIL.getAddress().getNumber(),
+					new AddressDTO(NATIONAL_LIBRARY_MONTREUIL.getAddress().getNumber(),
 							NATIONAL_LIBRARY_MONTREUIL.getAddress().getStreet(),
 							NATIONAL_LIBRARY_MONTREUIL.getAddress().getPostalCode(),
 							NATIONAL_LIBRARY_MONTREUIL.getAddress().getCity()),
-					new LibraryDTO.DirectorDTO(
-							NATIONAL_LIBRARY_MONTREUIL.getDirector().getSurname(), NATIONAL_LIBRARY_MONTREUIL
-							.getDirector().getName()),
-					NATIONAL_LIBRARY_MONTREUIL.getBooks().stream().map(book -> new LibraryDTO.BookDTO(book.getTitle(),
+					new DirectorDTO(NATIONAL_LIBRARY_MONTREUIL.getDirector().getSurname(),
+							NATIONAL_LIBRARY_MONTREUIL.getDirector().getName()),
+					NATIONAL_LIBRARY_MONTREUIL
+					.getBooks().stream().map(book -> new BookDTO(book.getIsbn(), book.getTitle(),
 							book.getAuthor(), book.getNumberOfPage(), book.getLiteraryGenre()))
 					.collect(Collectors.toList()));
 
@@ -142,13 +143,13 @@ class LibraryApplicationTests {
 		void test_create_2() {
 			// --------------- Given ---------------
 			final LibraryDTO national_library_montreuil_dto = new LibraryDTO(NATIONAL_LIBRARY_MONTREUIL.getType(),
-					new LibraryDTO.AddressDTO(NATIONAL_LIBRARY_MONTREUIL.getAddress().getNumber(),
+					new AddressDTO(NATIONAL_LIBRARY_MONTREUIL.getAddress().getNumber(),
 							NATIONAL_LIBRARY_MONTREUIL.getAddress().getStreet(),
-							NATIONAL_LIBRARY_MONTREUIL
-							.getAddress().getPostalCode(),
+							NATIONAL_LIBRARY_MONTREUIL.getAddress().getPostalCode(),
 							NATIONAL_LIBRARY_MONTREUIL.getAddress().getCity()),
 					null,
-					NATIONAL_LIBRARY_MONTREUIL.getBooks().stream().map(book -> new LibraryDTO.BookDTO(book.getTitle(),
+					NATIONAL_LIBRARY_MONTREUIL
+					.getBooks().stream().map(book -> new BookDTO(book.getIsbn(), book.getTitle(),
 							book.getAuthor(), book.getNumberOfPage(), book.getLiteraryGenre()))
 					.collect(Collectors.toList()));
 
