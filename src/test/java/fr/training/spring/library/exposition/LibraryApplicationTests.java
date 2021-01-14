@@ -93,6 +93,7 @@ class LibraryApplicationTests {
 		// I get an list of all libraries and a response code 200
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(response.getBody().getId()).isEqualTo(dummyLibrary.getId());
+		assertThat(response.getBody().getBooks().size()).isEqualTo(dummyLibrary.getBooks().size());
 	}
 
 	@Test
@@ -104,14 +105,14 @@ class LibraryApplicationTests {
 		// --------------- When ---------------
 		// I do a request on /libraries
 		final LibraryDTO mantional_library_montreuil_dto = new LibraryDTO(NATIONAL_LIBRARY_MONTREUIL.getType(),
-				new LibraryDTO.AddressDTO(NATIONAL_LIBRARY_MONTREUIL.getAddress().getNumber(),
+				new AddressDTO(NATIONAL_LIBRARY_MONTREUIL.getAddress().getNumber(),
 						NATIONAL_LIBRARY_MONTREUIL.getAddress().getStreet(),
 						NATIONAL_LIBRARY_MONTREUIL.getAddress().getPostalCode(),
 						NATIONAL_LIBRARY_MONTREUIL.getAddress().getCity()),
-				new LibraryDTO.DirectorDTO(NATIONAL_LIBRARY_MONTREUIL.getDirector().getSurname(),
-						NATIONAL_LIBRARY_MONTREUIL.getDirector().getName()),
-				NATIONAL_LIBRARY_MONTREUIL
-				.getBooks().stream().map(book -> new LibraryDTO.BookDTO(book.getIsbn(), book.getTitle(),
+				new DirectorDTO(
+						NATIONAL_LIBRARY_MONTREUIL.getDirector().getSurname(), NATIONAL_LIBRARY_MONTREUIL.getDirector()
+						.getName()),
+				NATIONAL_LIBRARY_MONTREUIL.getBooks().stream().map(book -> new BookDTO(book.getIsbn(), book.getTitle(),
 						book.getAuthor(), book.getNumberOfPage(), book.getLiteraryGenre()))
 				.collect(Collectors.toList()));
 		final ResponseEntity<Long> response = restTemplate.postForEntity("/libraries", mantional_library_montreuil_dto,
