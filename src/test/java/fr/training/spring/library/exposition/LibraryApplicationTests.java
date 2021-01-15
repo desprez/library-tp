@@ -4,7 +4,9 @@ import static fr.training.spring.library.exposition.DatabaseTestHelper.NATIONAL_
 import static fr.training.spring.library.exposition.DatabaseTestHelper.SCHOOL_LIBRARY_PARIS;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -22,8 +24,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import fr.training.spring.library.domain.exception.ErrorCodes;
-import fr.training.spring.library.domain.library.Library;
 import fr.training.spring.library.domain.library.Type;
+import fr.training.spring.library.domain.library.book.Book;
 import fr.training.spring.library.infrastructure.LibraryDAO;
 import fr.training.spring.library.infrastructure.LibraryJPA;
 
@@ -64,14 +66,14 @@ class LibraryApplicationTests {
 
 		// --------------- When ---------------
 		// I do a request on /libraries
-		final ResponseEntity<Library[]> response = restTemplate.getForEntity("/libraries", Library[].class);
+		final ResponseEntity<LibraryDTO[]> response = restTemplate.getForEntity("/libraries", LibraryDTO[].class);
 
 		// --------------- Then ---------------
 		// I get an list of all libraries and a response code 200
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(response.getBody()).isNotNull().hasSize(5)
-		.anyMatch(library -> library.getBooks().size() == 2 && library.getType() == Type.NATIONAL);
-		assertThat(Arrays.stream(response.getBody()).flatMap(library -> library.getBooks().stream()))
+		.anyMatch(library -> library.bookDTOList.size() == 2 && library.type == Type.NATIONAL);
+		assertThat(Arrays.stream(response.getBody()).flatMap(library -> library.bookDTOList.stream()))
 		.doesNotHaveDuplicates();
 		// Attention here ! If you try to add the same object multiple times in a
 		// one-to-many, it will MOVE the object (and not duplicate it)
@@ -87,14 +89,14 @@ class LibraryApplicationTests {
 
 		// --------------- When ---------------
 		// I do a request on /libraries/ + existing id
-		final ResponseEntity<Library> response = restTemplate.getForEntity("/libraries/" + dummyLibrary.getId(),
-				Library.class);
+		final ResponseEntity<LibraryDTO> response = restTemplate.getForEntity("/libraries/" + dummyLibrary.getId(),
+				LibraryDTO.class);
 
 		// --------------- Then ---------------
 		// I get a library and a response code 200
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-		assertThat(response.getBody().getId()).isEqualTo(dummyLibrary.getId());
-		assertThat(response.getBody().getBooks().size()).isEqualTo(dummyLibrary.getBooks().size());
+		// assertThat(response.getBody().getId()).isEqualTo(dummyLibrary.getId());
+		assertThat(response.getBody().bookDTOList.size()).isEqualTo(dummyLibrary.getBooks().size());
 	}
 
 	@Test
@@ -104,8 +106,8 @@ class LibraryApplicationTests {
 		// Test data
 
 		// --------------- When ---------------
-		// I do a request on /libraries
-		final LibraryDTO mantional_library_montreuil_dto = new LibraryDTO(NATIONAL_LIBRARY_MONTREUIL.getType(),
+
+		final LibraryDTO nationalLibraryMontreuil_dto = new LibraryDTO(NATIONAL_LIBRARY_MONTREUIL.getType(),
 				new AddressDTO(NATIONAL_LIBRARY_MONTREUIL.getAddress().getNumber(),
 						NATIONAL_LIBRARY_MONTREUIL.getAddress().getStreet(),
 						NATIONAL_LIBRARY_MONTREUIL.getAddress().getPostalCode(),
@@ -116,7 +118,9 @@ class LibraryApplicationTests {
 				NATIONAL_LIBRARY_MONTREUIL.getBooks().stream().map(book -> new BookDTO(book.getIsbn(), book.getTitle(),
 						book.getAuthor(), book.getNumberOfPage(), book.getLiteraryGenre()))
 				.collect(Collectors.toList()));
-		final ResponseEntity<Long> response = restTemplate.postForEntity("/libraries", mantional_library_montreuil_dto,
+
+		// I do a request on /libraries
+		final ResponseEntity<Long> response = restTemplate.postForEntity("/libraries", nationalLibraryMontreuil_dto,
 				Long.class);
 
 		// --------------- Then ---------------
@@ -137,7 +141,7 @@ class LibraryApplicationTests {
 
 	@Nested
 	@DisplayName("Api PUT:/libraries")
-	class Test_update {
+	class test_update {
 		@Test
 		@DisplayName(" should update the library when passing on a correct ID")
 		void test_update_1() {
@@ -146,7 +150,19 @@ class LibraryApplicationTests {
 			final Long idOfCreatedLibrary = dummyLibrary.getId();
 
 			// --------------- When ---------------
-			restTemplate.put("/libraries/" + idOfCreatedLibrary, SCHOOL_LIBRARY_PARIS);
+			final LibraryDTO schoolLibraryParis = new LibraryDTO(SCHOOL_LIBRARY_PARIS.getType(),
+					new AddressDTO(SCHOOL_LIBRARY_PARIS.getAddress().getNumber(),
+							SCHOOL_LIBRARY_PARIS.getAddress().getStreet(),
+							SCHOOL_LIBRARY_PARIS.getAddress().getPostalCode(),
+							SCHOOL_LIBRARY_PARIS.getAddress().getCity()),
+					new DirectorDTO(SCHOOL_LIBRARY_PARIS.getDirector().getSurname(),
+							SCHOOL_LIBRARY_PARIS.getDirector().getName()),
+					SCHOOL_LIBRARY_PARIS
+					.getBooks().stream().map(book -> new BookDTO(book.getIsbn(), book.getTitle(),
+							book.getAuthor(), book.getNumberOfPage(), book.getLiteraryGenre()))
+					.collect(Collectors.toList()));
+
+			restTemplate.put("/libraries/" + idOfCreatedLibrary, schoolLibraryParis);
 
 			// --------------- Then ---------------
 			final Optional<LibraryJPA> libraryFromDB = libraryDAO.findById(idOfCreatedLibrary);
@@ -163,8 +179,24 @@ class LibraryApplicationTests {
 			// Test data
 
 			// --------------- When ---------------
+
+			final List<BookDTO> bookDTOList = new ArrayList<>();
+			for (final Book book : SCHOOL_LIBRARY_PARIS.getBooks()) {
+				bookDTOList.add(new BookDTO(book.getIsbn(), book.getTitle(), book.getAuthor(), book.getNumberOfPage(),
+						book.getLiteraryGenre()));
+			}
+
+			final LibraryDTO schoolLibraryParisDTO = new LibraryDTO(SCHOOL_LIBRARY_PARIS.getType(), //
+					new AddressDTO(SCHOOL_LIBRARY_PARIS.getAddress().getNumber(),
+							SCHOOL_LIBRARY_PARIS.getAddress().getStreet(),
+							SCHOOL_LIBRARY_PARIS.getAddress().getPostalCode(),
+							SCHOOL_LIBRARY_PARIS.getAddress().getCity()), //
+					new DirectorDTO(SCHOOL_LIBRARY_PARIS.getDirector().getName(),
+							SCHOOL_LIBRARY_PARIS.getDirector().getSurname()), //
+					bookDTOList);
+
 			final ResponseEntity<String> response = restTemplate.exchange("/libraries/" + Long.MAX_VALUE,
-					HttpMethod.PUT, new HttpEntity<>(SCHOOL_LIBRARY_PARIS), String.class);
+					HttpMethod.PUT, new HttpEntity<>(schoolLibraryParisDTO), String.class);
 
 			// --------------- Then ---------------
 			assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
@@ -213,12 +245,12 @@ class LibraryApplicationTests {
 		// Test data
 
 		// --------------- When ---------------
-		final ResponseEntity<Library[]> response = restTemplate.getForEntity("/libraries/type/" + Type.NATIONAL,
-				Library[].class);
+		final ResponseEntity<LibraryDTO[]> response = restTemplate.getForEntity("/libraries/type/" + Type.NATIONAL,
+				LibraryDTO[].class);
 
 		// --------------- Then ---------------
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-		assertThat(response.getBody()).hasSize(2).allMatch(library -> library.getType().equals(Type.NATIONAL));
+		assertThat(response.getBody()).hasSize(2).allMatch(library -> library.type.equals(Type.NATIONAL));
 	}
 
 	@Test
@@ -228,12 +260,11 @@ class LibraryApplicationTests {
 		// Test data
 
 		// --------------- When ---------------
-		final ResponseEntity<Library[]> response = restTemplate
-				.getForEntity("/libraries/director/surname/" + "Garfield", Library[].class);
+		final ResponseEntity<LibraryDTO[]> response = restTemplate
+				.getForEntity("/libraries/director/surname/" + "Garfield", LibraryDTO[].class);
 
 		// --------------- Then ---------------
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-		assertThat(response.getBody()).hasSize(3)
-		.allMatch(library -> library.getDirector().getSurname().equals("Garfield"));
+		assertThat(response.getBody()).hasSize(3).allMatch(library -> library.directorDTO.surname.equals("Garfield"));
 	}
 }

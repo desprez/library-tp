@@ -54,7 +54,7 @@ public class DatabaseTestHelper {
 	public static final Library PUBLIC_LIBRARY_VINCENNES = new Library(null, Type.PUBLIC,
 			new Address(5, "Rue de Vincennes", 94200, "Vincennes"), new Director("Garfield", "LECHAT3"),
 			Arrays.asList(DAVINCICODE, ILIUM, LORDOFTHERINGS));
-	public static final Library DUMMY_LIBRARY = new Library(null, null, new Address(0, "DUMMY_STREET", 0, "DUMMY_CITY"),
+	public static final Library DUMMY_LIBRARY = new Library(null, Type.SCHOOL, new Address(0, "DUMMY_STREET", 0, "DUMMY_CITY"),
 			new Director("DUMMY_NAME", "DUMMY_SURNAME"), Arrays.asList(SPRING_IN_ACTION));
 
 	public static final LibraryJPA NATIONAL_LIBRARY_MONTREUIL_JPA = new LibraryJPA(NATIONAL_LIBRARY_MONTREUIL);
