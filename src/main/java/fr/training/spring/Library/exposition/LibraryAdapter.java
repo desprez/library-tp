@@ -2,64 +2,66 @@ package fr.training.spring.library.exposition;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import fr.training.spring.library.domain.library.Address;
 import fr.training.spring.library.domain.library.Director;
 import fr.training.spring.library.domain.library.Library;
 import fr.training.spring.library.domain.library.book.Book;
 
-public final class LibraryAdapter {
+public class LibraryAdapter {
 
 	private LibraryAdapter() {
+
 	}
 
 	public static Library transformToLibrary(final LibraryDTO libraryDTO) {
-		final Address address = new Address(libraryDTO.addressDTO.number, //
-				libraryDTO.addressDTO.street, //
-				libraryDTO.addressDTO.postalCode, //
-				libraryDTO.addressDTO.city);
 
 		final Director director = new Director(libraryDTO.directorDTO.surname, libraryDTO.directorDTO.name);
 
-		return new Library(libraryDTO.type, address, director, transformToBook(libraryDTO.bookDTOList));
+		final List<Book> books = transformToBooks(libraryDTO.bookDTOList);
+
+		final Address address = new Address(libraryDTO.adressDTO.number, libraryDTO.adressDTO.street,
+				libraryDTO.adressDTO.postalCode, libraryDTO.adressDTO.city);
+
+		return new Library(libraryDTO.type, address, director, books);
 	}
 
-	public static List<Book> transformToBook(final List<BookDTO> bookDTOs) {
-		final List<Book> result = new ArrayList<>();
-		for (final BookDTO bookDTO : bookDTOs) {
-			if (result != null) {
-				result.add(new Book(bookDTO.isbn, bookDTO.title, bookDTO.author, bookDTO.numberOfPage, bookDTO.literaryGenre));
+	private static List<Book> transformToBooks(final List<BookDTO> bookDTOList) {
+		final List<Book> result = new ArrayList<Book>();
+		for (final BookDTO bookDTO : bookDTOList) {
+			if (bookDTO != null) {
+				result.add(new Book(bookDTO.isbn, bookDTO.title, bookDTO.author, bookDTO.numberOfPage,
+						bookDTO.literaryGenre));
 			}
 		}
 		return result;
 	}
 
-	public static LibraryDTO adaptToLibraryDTO(final Library library) {
-		return new LibraryDTO(library.getType(),
+	public static LibraryDTO adaptToDto(final Library library) {
+
+		return new LibraryDTO(library.getType(), //
 				new AddressDTO(library.getAddress().getNumber(), library.getAddress().getStreet(),
-						library.getAddress().getPostalCode(), library.getAddress().getCity()),
-				new DirectorDTO(library.getDirector().getSurname(), library.getDirector().getName()),
-				LibraryAdapter.adaptToBookListDTO(library.getBooks()));
+						library.getAddress().getPostalCode(), library.getAddress().getCity()), //
+				new DirectorDTO(library.getDirector().getName(), library.getDirector().getSurname()), //
+				LibraryAdapter.adaptToBookListDto(library.getBooks()));
 	}
 
-	public static List<LibraryDTO> adaptToLibraryDTO(final List<Library> libraries) {
-		return libraries.stream().map(LibraryAdapter::adaptToLibraryDTO).collect(Collectors.toList());
-	}
-
-	public static List<BookDTO> adaptToBookListDTO(final List<Book> books) {
-		final List<BookDTO> result = new ArrayList<>();
+	private static List<BookDTO> adaptToBookListDto(final List<Book> books) {
+		final List<BookDTO> bookDtos = new ArrayList<BookDTO>();
 		for (final Book book : books) {
-			if (book != null) {
-				result.add(adaptToBookDTO(book));
-			}
+			bookDtos.add(new BookDTO(book.getIsbn(), book.getTitle(), book.getAuthor(), book.getNumberOfPage(),
+					book.getLiteraryGenre()));
 		}
-		return result;
+		return bookDtos;
 	}
 
-	public static BookDTO adaptToBookDTO(final Book book) {
-		return new BookDTO(book.getIsbn(), book.getTitle(), book.getAuthor(), book.getNumberOfPage(),
-				book.getLiteraryGenre());
+	public static List<LibraryDTO> adaptToDtoList(final List<Library> libraries) {
+		final List<LibraryDTO> librariesDto = new ArrayList<LibraryDTO>();
+
+		for (final Library library : libraries) {
+			librariesDto.add(adaptToDto(library));
+		}
+		return librariesDto;
 	}
 
 }

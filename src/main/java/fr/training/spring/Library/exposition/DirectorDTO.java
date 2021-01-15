@@ -5,12 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class DirectorDTO {
 
 	@JsonProperty
-	final String surname;
-	@JsonProperty
-	final String name;
+	String name;
 
-	public DirectorDTO(final String surname, final String name) {
-		this.surname = surname;
+	@JsonProperty
+	String surname;
+
+	public DirectorDTO(final String name, final String surname) {
 		this.name = name;
+		this.surname = surname;
 	}
+
 }

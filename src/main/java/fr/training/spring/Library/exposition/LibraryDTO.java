@@ -1,34 +1,30 @@
 package fr.training.spring.library.exposition;
 
-import java.util.Collections;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import fr.training.spring.library.domain.library.Type;
 
-//Here, encapsulation can be debated because the internal structure does not have to be hidden
-//and the DTO is not supposed to have any kind of intelligence
 public class LibraryDTO {
 
 	@JsonProperty
-	final Type type;
+	Type type;
 
 	@JsonProperty
-	final AddressDTO addressDTO;
+	AddressDTO adressDTO;
 
 	@JsonProperty
-	final DirectorDTO directorDTO;
+	DirectorDTO directorDTO;
 
 	@JsonProperty
-	final List<BookDTO> bookDTOList;
+	List<BookDTO> bookDTOList;
 
-	public LibraryDTO(final Type type, final AddressDTO addressDTO, final DirectorDTO directorDTO,
-			final List<BookDTO> bookDTOList) {
+	public LibraryDTO(final Type type, final AddressDTO adressDTO, final DirectorDTO directorDTO, final List<BookDTO> bookDTOList) {
 		this.type = type;
-		this.addressDTO = addressDTO;
+		this.adressDTO = adressDTO;
 		this.directorDTO = directorDTO;
-		this.bookDTOList = Collections.unmodifiableList(bookDTOList);
+		this.bookDTOList = bookDTOList;
 	}
 
 }
