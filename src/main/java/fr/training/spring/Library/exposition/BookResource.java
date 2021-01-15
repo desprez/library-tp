@@ -18,7 +18,8 @@ public class BookResource {
 
 	@GetMapping("/books")
 	@ResponseStatus(HttpStatus.OK)
-	public Book searchBookByISBN(@RequestParam("isbn") final String isbn) {
-		return bookService.searchBookByISBN(isbn);
+	public BookDTO searchBookByISBN(@RequestParam("isbn") final String isbn) {
+		final Book book = bookService.searchBookByISBN(isbn);
+		return new BookDTO(isbn, book.getTitle(), book.getAuthor(), book.getNumberOfPage(), book.getLiteraryGenre());
 	}
 }

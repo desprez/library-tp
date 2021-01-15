@@ -67,7 +67,6 @@ public class Library {
 		if (obj == null) {
 			return false;
 		}
-
 		if (!this.getClass().isAssignableFrom(obj.getClass())) {
 			return false;
 		}
@@ -88,7 +87,6 @@ public class Library {
 	}
 
 	public void addBook(final Book book) {
-		// TODO Auto-generated method stub
-
+		books.add(book);
 	}
 }

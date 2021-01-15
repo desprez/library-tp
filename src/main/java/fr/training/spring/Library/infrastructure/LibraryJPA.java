@@ -50,10 +50,11 @@ public class LibraryJPA {
 	private String directorName;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name="LIBRARY_ID", referencedColumnName = "ID")
+	@JoinColumn(name = "LIBRARY_ID", referencedColumnName = "ID")
 	private List<BookJPA> books;
 
-	private LibraryJPA() {}
+	private LibraryJPA() {
+	}
 
 	public LibraryJPA(final Library library) {
 		id = library.getId();
@@ -72,7 +73,8 @@ public class LibraryJPA {
 
 		final Director director = new Director(directorSurname, directorName);
 
-		final List<Book> bookList = books.stream().map(b -> new Book(b.getId(), b.getIsbn(), b.getTitle(), b.getAuthor(), b.getNumberOfPage(), b.getLiteraryGenre())).collect(Collectors.toList());
+		final List<Book> bookList = books.stream().map(b -> new Book(b.getId(), b.getIsbn(), b.getTitle(),
+				b.getAuthor(), b.getNumberOfPage(), b.getLiteraryGenre())).collect(Collectors.toList());
 
 		return new Library(id, type, address, director, bookList);
 	}

@@ -1,4 +1,4 @@
-package fr.training.spring.library.infrastructure.http.book;
+package fr.training.spring.library.infrastructure.http.dto;
 
 import java.util.List;
 

@@ -30,7 +30,7 @@ public class RestTemplateResponseErrorHandler implements ResponseErrorHandler {
 		} else if (httpResponse.getStatusCode().series() == HttpStatus.Series.CLIENT_ERROR) {
 			// handle CLIENT_ERROR
 			if (httpResponse.getStatusCode() == HttpStatus.NOT_FOUND) {
-				throw new NotFoundException("ISBN Not found", ErrorCodes.BOOK_NOT_FOUND);
+				throw new NotFoundException("Not found", ErrorCodes.BOOK_NOT_FOUND);
 			}
 		}
 	}

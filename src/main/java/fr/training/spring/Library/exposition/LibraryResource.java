@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.training.spring.library.application.LibraryService;
-import fr.training.spring.library.domain.library.Library;
 import fr.training.spring.library.domain.library.Type;
-
 
 @RestController
 public class LibraryResource {
@@ -34,20 +32,21 @@ public class LibraryResource {
 
 	@GetMapping("/libraries/{libraryId}")
 	@ResponseStatus(HttpStatus.OK)
-	public Library detailLibrary(@PathVariable("libraryId") final Long libraryId) {
-		return libraryService.obtain(libraryId);
+	public LibraryDTO detailLibrary(@PathVariable("libraryId") final Long libraryId) {
+		return LibraryAdapter.adaptToDto(libraryService.obtain(libraryId));
 	}
 
 	@GetMapping("/libraries")
 	@ResponseStatus(HttpStatus.OK)
-	public List<Library> listAllLibrairies() {
-		return libraryService.listAll();
+	public List<LibraryDTO> listAllLibrairies() {
+		return LibraryAdapter.adaptToDtoList(libraryService.listAll());
 	}
 
 	@PutMapping("/libraries/{libraryId}")
 	@ResponseStatus(HttpStatus.OK)
-	public void updateLibrary(@PathVariable("libraryId") final Long libraryId, @RequestBody final Library library) {
-		libraryService.update(libraryId, library);
+	public void updateLibrary(@PathVariable("libraryId") final Long libraryId,
+			@RequestBody final LibraryDTO libraryDTO) {
+		libraryService.update(libraryId, LibraryAdapter.transformToLibrary(libraryDTO));
 	}
 
 	@DeleteMapping("/libraries/{libraryId}")
@@ -58,21 +57,14 @@ public class LibraryResource {
 
 	@GetMapping("/libraries/type/{type}")
 	@ResponseStatus(HttpStatus.OK)
-	public List<Library> listAllLibrairiesByType(@PathVariable("type") final Type type) {
-		return libraryService.listAllByType(type);
+	public List<LibraryDTO> listAllLibrairiesByType(@PathVariable("type") final Type type) {
+		return LibraryAdapter.adaptToDtoList(libraryService.listAllByType(type));
 	}
 
 	@GetMapping("/libraries/director/surname/{surname}")
 	@ResponseStatus(HttpStatus.OK)
-	public List<Library> listAllLibrairiesByDirectorName(@PathVariable("surname") final String surname) {
-		return libraryService.listAllByDirectorName(surname);
+	public List<LibraryDTO> listAllLibrairiesByDirectorName(@PathVariable("surname") final String surname) {
+		return LibraryAdapter.adaptToDtoList(libraryService.listAllByDirectorName(surname));
 	}
 
-	@PostMapping("/libraries/{libraryId}/book")
-	@ResponseStatus(HttpStatus.CREATED)
-	public void createLibrary(@PathVariable("libraryId") final Long libraryId,
-			@Valid @RequestBody final BookReferenceDTO bookReferenceDTO) {
-
-		libraryService.referenceBook(libraryId, bookReferenceDTO.isbn, bookReferenceDTO.literaryGenre);
-	}
 }

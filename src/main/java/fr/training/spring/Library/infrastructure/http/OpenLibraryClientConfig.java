@@ -14,6 +14,13 @@ public class OpenLibraryClientConfig {
 
 	private static final String BASE_URL = "https://openlibrary.org";
 
+	/**
+	 * Configure a RestTemplate with errorHandler to call openlibrary.org
+	 *
+	 * @param restTemplateBuilder injected By Spring
+	 *
+	 * @return a RestTemplate
+	 */
 	@Bean
 	public RestTemplate getRestClient(final RestTemplateBuilder restTemplateBuilder) {
 
@@ -21,8 +28,7 @@ public class OpenLibraryClientConfig {
 
 		return restTemplateBuilder.interceptors(interceptors) //
 				.rootUri(BASE_URL) //
-				.errorHandler(new RestTemplateResponseErrorHandler())
-				.build();
+				.errorHandler(new RestTemplateResponseErrorHandler()).build();
 	}
 
 }

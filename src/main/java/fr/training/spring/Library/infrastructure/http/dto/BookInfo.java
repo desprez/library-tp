@@ -1,4 +1,4 @@
-package fr.training.spring.library.infrastructure.http.book;
+package fr.training.spring.library.infrastructure.http.dto;
 
 import java.util.List;
 
@@ -6,9 +6,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import fr.training.spring.library.infrastructure.http.common.DateInfo;
-import fr.training.spring.library.infrastructure.http.common.TypeInfo;
 
 public class BookInfo {
 

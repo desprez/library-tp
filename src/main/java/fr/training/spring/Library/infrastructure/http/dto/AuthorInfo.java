@@ -1,10 +1,7 @@
-package fr.training.spring.library.infrastructure.http.author;
+package fr.training.spring.library.infrastructure.http.dto;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
-import fr.training.spring.library.infrastructure.http.common.DateInfo;
-import fr.training.spring.library.infrastructure.http.common.TypeInfo;
 
 public class AuthorInfo {
 

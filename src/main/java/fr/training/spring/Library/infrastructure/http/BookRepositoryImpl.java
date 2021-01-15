@@ -10,8 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import fr.training.spring.library.domain.ddd.DDD;
 import fr.training.spring.library.domain.library.book.Book;
 import fr.training.spring.library.domain.library.book.BookRepository;
-import fr.training.spring.library.infrastructure.http.author.AuthorInfo;
-import fr.training.spring.library.infrastructure.http.book.BookInfo;
+import fr.training.spring.library.infrastructure.http.dto.BookInfo;
 
 @DDD.RepositoryImpl
 @Component
@@ -29,26 +28,8 @@ public class BookRepositoryImpl implements BookRepository {
 
 		final BookInfo bookInfo = response.getBody();
 		logger.info(bookInfo.toString());
-		final String authorKey = bookInfo.getAuthors().get(0).getKey();
-		String authorName = "";
-		if (!authorKey.isEmpty()) {
-			try {
-				authorName = getAuthorName(authorKey);
-			} catch (final Exception e) {
-				logger.error("Can get author for " + e);
-			}
-		}
-		return new Book(null, isbn, bookInfo.getTitle(), authorName, bookInfo.getNumber_of_pages(), null);
-	}
 
-	public String getAuthorName(final String authorKey) {
-		final ResponseEntity<AuthorInfo> response = restTemplate.getForEntity("/authors/" + authorKey + ".json",
-				AuthorInfo.class);
-
-		final AuthorInfo authorInfo = response.getBody();
-		logger.info(authorInfo.toString());
-
-		return authorInfo.getName();
+		return new Book(null, isbn, bookInfo.getTitle(), "", bookInfo.getNumber_of_pages(), null);
 	}
 
 }
