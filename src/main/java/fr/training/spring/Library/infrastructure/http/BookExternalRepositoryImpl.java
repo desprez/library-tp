@@ -30,12 +30,10 @@ public class BookExternalRepositoryImpl implements BookRepository {
 	@Override
 	public Book searchBook(final String isbn) {
 		try {
-
 			final ResponseEntity<BookInfo> response = restTemplate.getForEntity("/isbn/" + isbn + ".json",
 					BookInfo.class);
 
 			final BookInfo bookInfo = response.getBody();
-
 
 			logger.debug(bookInfo.toString());
 
@@ -45,7 +43,8 @@ public class BookExternalRepositoryImpl implements BookRepository {
 
 		} catch (HttpClientErrorException | HttpServerErrorException e) {
 			if (HttpStatus.NOT_FOUND.equals(e.getStatusCode())) {
-				throw new NotFoundException("Book isbn " + isbn + " not found in openlibrary.org", ErrorCodes.BOOK_NOT_FOUND);
+				throw new NotFoundException("Book isbn " + isbn + " not found in openlibrary.org",
+						ErrorCodes.BOOK_NOT_FOUND);
 			}
 			throw new OpenLibraryTechnicalException(e);
 		}
