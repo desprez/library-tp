@@ -22,9 +22,9 @@ import fr.training.spring.library.infrastructure.http.dto.BookInfo;
 
 @DDD.RepositoryImpl
 @Component
-public class BookRepositoryImpl implements BookRepository {
+public class BookExternalRepositoryImpl implements BookRepository {
 
-	private static final Logger logger = LoggerFactory.getLogger(BookRepositoryImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(BookExternalRepositoryImpl.class);
 
 	@Autowired
 	private RestTemplate restTemplate;
