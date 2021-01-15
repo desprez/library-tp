@@ -72,7 +72,7 @@ public class LibraryJPA {
 
 		final Director director = new Director(directorSurname, directorName);
 
-		final List<Book> bookList = books.stream().map(b -> new Book(b.getId(), b.getTitle(), b.getAuthor(), b.getNumberOfPage(), b.getLiteraryGenre())).collect(Collectors.toList());
+		final List<Book> bookList = books.stream().map(b -> new Book(b.getId(), b.getIsbn(), b.getTitle(), b.getAuthor(), b.getNumberOfPage(), b.getLiteraryGenre())).collect(Collectors.toList());
 
 		return new Library(id, type, address, director, bookList);
 	}

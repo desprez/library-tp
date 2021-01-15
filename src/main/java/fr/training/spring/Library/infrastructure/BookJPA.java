@@ -18,6 +18,9 @@ public class BookJPA {
 	@Column(name = "ID")
 	private Long id;
 
+	@Column(name = "ISBN")
+	private String isbn;
+
 	@Column(name = "TITLE")
 	private String title;
 
@@ -36,6 +39,7 @@ public class BookJPA {
 
 	public BookJPA(final Book book) {
 		id = book.getId();
+		isbn = book.getIsbn();
 		title = book.getTitle();
 		author = book.getAuthor();
 		numberOfPage = book.getNumberOfPage();
@@ -44,6 +48,10 @@ public class BookJPA {
 
 	public Long getId() {
 		return id;
+	}
+
+	public String getIsbn() {
+		return isbn;
 	}
 
 	public String getTitle() {

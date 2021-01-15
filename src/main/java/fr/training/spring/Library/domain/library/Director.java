@@ -25,7 +25,7 @@ public class Director {
 
 	public void validate() {
 		if (this == null || StringUtils.isEmpty(surname) || StringUtils.isEmpty(name == null)) {
-			throw new ValidationException(ErrorCodes.LIBRARY_MUST_HAVE_A_DIRECTOR);
+			throw new ValidationException("Director is null", ErrorCodes.LIBRARY_MUST_HAVE_A_DIRECTOR);
 		}
 	}
 

@@ -10,7 +10,9 @@ import fr.training.spring.library.domain.ddd.DDD;
 import fr.training.spring.library.domain.library.Library;
 import fr.training.spring.library.domain.library.LibraryRepository;
 import fr.training.spring.library.domain.library.Type;
-
+import fr.training.spring.library.domain.library.book.Book;
+import fr.training.spring.library.domain.library.book.BookRepository;
+import fr.training.spring.library.domain.library.book.LiteraryGenre;
 
 @DDD.ApplicationService
 @Transactional
@@ -19,6 +21,9 @@ public class LibraryService {
 
 	@Autowired
 	private LibraryRepository libraryRepository;
+
+	@Autowired
+	private BookRepository bookRepository;
 
 	public Long create(final Library newLibrary) {
 		return libraryRepository.save(newLibrary);
@@ -49,5 +54,12 @@ public class LibraryService {
 
 	public List<Library> listAllByDirectorName(final String surname) {
 		return libraryRepository.findLibraryByDirectorSurname(surname);
+	}
+
+	public void referenceBook(final Long libraryId, final String isbn, final LiteraryGenre literaryGenre) {
+		final Book book = bookRepository.searchBook(isbn);
+		final Library library = obtain(libraryId);
+		library.addBook(book);
+		libraryRepository.save(library);
 	}
 }

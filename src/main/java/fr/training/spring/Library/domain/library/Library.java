@@ -86,4 +86,9 @@ public class Library {
 	public String toString() {
 		return String.format("%s{id:%s)", this.getClass().getSimpleName(), id);
 	}
+
+	public void addBook(final Book book) {
+		// TODO Auto-generated method stub
+
+	}
 }

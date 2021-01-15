@@ -7,6 +7,8 @@ public class Book {
 
 	private Long id;
 
+	private String isbn;
+
 	private String title;
 
 	private String author;
@@ -18,9 +20,10 @@ public class Book {
 	private Book() {
 	}
 
-	public Book(final Long id, final String title, final String author, final int numberOfPage,
+	public Book(final Long id, final String isbn, final String title, final String author, final int numberOfPage,
 			final LiteraryGenre literaryGenre) {
 		this.id = id;
+		this.isbn = isbn;
 		this.title = title;
 		this.author = author;
 		this.numberOfPage = numberOfPage;
@@ -29,6 +32,10 @@ public class Book {
 
 	public Long getId() {
 		return id;
+	}
+
+	public String getIsbn() {
+		return isbn;
 	}
 
 	public String getTitle() {

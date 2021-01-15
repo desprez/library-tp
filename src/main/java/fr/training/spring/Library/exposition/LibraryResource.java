@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.training.spring.library.application.LibraryService;
 import fr.training.spring.library.domain.library.Library;
 import fr.training.spring.library.domain.library.Type;
+
+
 @RestController
 public class LibraryResource {
 
@@ -66,4 +68,11 @@ public class LibraryResource {
 		return libraryService.listAllByDirectorName(surname);
 	}
 
+	@PostMapping("/libraries/{libraryId}/book")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void createLibrary(@PathVariable("libraryId") final Long libraryId,
+			@Valid @RequestBody final BookReferenceDTO bookReferenceDTO) {
+
+		libraryService.referenceBook(libraryId, bookReferenceDTO.isbn, bookReferenceDTO.literaryGenre);
+	}
 }
