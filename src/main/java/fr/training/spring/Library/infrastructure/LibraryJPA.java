@@ -1,7 +1,7 @@
 package fr.training.spring.library.infrastructure;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -52,11 +52,16 @@ public class LibraryJPA {
 	private String directorName;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name="LIBRARY_ID", referencedColumnName = "ID")
+	@JoinColumn(name = "LIBRARY_ID", referencedColumnName = "ID")
 	private List<BookJPA> books;
 
-	private LibraryJPA() {}
+	private LibraryJPA() {
 
+	}
+
+	/**
+	 * Copy constructor
+	 */
 	public LibraryJPA(final Library library) {
 		id = library.getId();
 		type = library.getType();
@@ -64,18 +69,22 @@ public class LibraryJPA {
 		addressStreet = library.getAddress().getStreet();
 		addressPostalCode = library.getAddress().getPostalCode();
 		addressCity = library.getAddress().getCity();
-		directorSurname = library.getDirector().getSurname();
 		directorName = library.getDirector().getName();
-		books = library.getBooks().stream().map(BookJPA::new).collect(Collectors.toList());
+		directorSurname = library.getDirector().getSurname();
+		books = new ArrayList<>();
+		for (final Book book : library.getBooks()) {
+			books.add(new BookJPA(book));
+		}
 	}
 
 	public Library toLibrary() {
 		final Address address = new Address(addressNumber, addressStreet, addressPostalCode, addressCity);
-
 		final Director director = new Director(directorSurname, directorName);
-
-		final List<Book> bookList = books.stream().map(b -> new Book(b.getId(), b.getIsbn(), b.getTitle(), b.getAuthor(), b.getNumberOfPage(), b.getLiteraryGenre())).collect(Collectors.toList());
-
+		final List<Book> bookList = new ArrayList<>();
+		for (final BookJPA bookJPA : books) {
+			bookList.add(new Book(bookJPA.getId(), bookJPA.getIsbn(), bookJPA.getTitle(), bookJPA.getAuthor(),
+					bookJPA.getNumberOfPage(), bookJPA.getLiteraryGenre()));
+		}
 		return new Library(id, type, address, director, bookList);
 	}
 
@@ -114,4 +123,5 @@ public class LibraryJPA {
 	public List<BookJPA> getBooks() {
 		return books;
 	}
+
 }

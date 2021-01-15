@@ -37,6 +37,7 @@ public class BookJPA {
 	private LiteraryGenre literaryGenre;
 
 	private BookJPA() {
+
 	}
 
 	public BookJPA(final Book book) {
@@ -71,4 +72,5 @@ public class BookJPA {
 	public LiteraryGenre getLiteraryGenre() {
 		return literaryGenre;
 	}
+
 }

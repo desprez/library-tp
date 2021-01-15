@@ -3,6 +3,7 @@ package fr.training.spring.library.domain.library;
 import java.util.List;
 
 import fr.training.spring.library.domain.library.book.Book;
+
 public class Library {
 
 	private Long id;
