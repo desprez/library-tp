@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class OpenLibraryClientConfig {
 
+	// Best practice is to externalize this url in properies
 	private static final String BASE_URL = "https://openlibrary.org";
 
 	/**
@@ -28,7 +29,7 @@ public class OpenLibraryClientConfig {
 
 		return restTemplateBuilder.interceptors(interceptors) //
 				.rootUri(BASE_URL) //
-				.errorHandler(new RestTemplateResponseErrorHandler()).build();
+				.build();
 	}
 
 }

@@ -67,4 +67,12 @@ public class LibraryResource {
 		return LibraryAdapter.adaptToDtoList(libraryService.listAllByDirectorName(surname));
 	}
 
+	@PostMapping("/libraries/{libraryId}/book")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void addBookToLibrary(@PathVariable("libraryId") final Long libraryId,
+			@Valid @RequestBody final BookReferenceDTO bookReferenceDTO) {
+
+		libraryService.referenceBook(libraryId, bookReferenceDTO.isbn, bookReferenceDTO.literaryGenre);
+	}
+
 }
