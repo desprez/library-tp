@@ -1,5 +1,6 @@
 package fr.training.spring.library.exposition;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,12 +25,17 @@ public final class LibraryAdapter {
 		return new Library(libraryDTO.type, address, director, transformToBook(libraryDTO.bookDTOList));
 	}
 
-	public static List<Book> transformToBook(final List<BookDTO> bookDTO) {
-		return bookDTO.stream().map(b -> new Book(b.isbn, b.title, b.author, b.numberOfPage, b.literaryGenre))
-				.collect(Collectors.toList());
+	public static List<Book> transformToBook(final List<BookDTO> bookDTOs) {
+		final List<Book> result = new ArrayList<>();
+		for (final BookDTO bookDTO : bookDTOs) {
+			if (result != null) {
+				result.add(new Book(bookDTO.isbn, bookDTO.title, bookDTO.author, bookDTO.numberOfPage, bookDTO.literaryGenre));
+			}
+		}
+		return result;
 	}
 
-	public static LibraryDTO adaptToBookDTO(final Library library) {
+	public static LibraryDTO adaptToLibraryDTO(final Library library) {
 		return new LibraryDTO(library.getType(),
 				new AddressDTO(library.getAddress().getNumber(), library.getAddress().getStreet(),
 						library.getAddress().getPostalCode(), library.getAddress().getCity()),
@@ -38,11 +44,17 @@ public final class LibraryAdapter {
 	}
 
 	public static List<LibraryDTO> adaptToLibraryDTO(final List<Library> libraries) {
-		return libraries.stream().map(LibraryAdapter::adaptToBookDTO).collect(Collectors.toList());
+		return libraries.stream().map(LibraryAdapter::adaptToLibraryDTO).collect(Collectors.toList());
 	}
 
 	public static List<BookDTO> adaptToBookListDTO(final List<Book> books) {
-		return books.stream().map(LibraryAdapter::adaptToBookDTO).collect(Collectors.toList());
+		final List<BookDTO> result = new ArrayList<>();
+		for (final Book book : books) {
+			if (book != null) {
+				result.add(adaptToBookDTO(book));
+			}
+		}
+		return result;
 	}
 
 	public static BookDTO adaptToBookDTO(final Book book) {

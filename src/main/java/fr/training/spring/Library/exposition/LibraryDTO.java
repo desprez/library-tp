@@ -31,9 +31,4 @@ public class LibraryDTO {
 		this.bookDTOList = Collections.unmodifiableList(bookDTOList);
 	}
 
-
-
-
-
-
 }
