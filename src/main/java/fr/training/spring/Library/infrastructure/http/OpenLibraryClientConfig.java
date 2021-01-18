@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class OpenLibraryClientConfig {
 
-	// Best practice is to externalize this url in properies
+	// Best practice is to externalize this url in properties
 	private static final String BASE_URL = "https://openlibrary.org";
 
 	/**
