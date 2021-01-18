@@ -7,15 +7,15 @@ import fr.training.spring.library.domain.library.book.LiteraryGenre;
 public class BookDTO {
 
 	@JsonProperty
-	final String isbn;
+	public String isbn;
 	@JsonProperty
-	final String title;
+	public String title;
 	@JsonProperty
-	final String author;
+	public String author;
 	@JsonProperty
-	final int numberOfPage;
+	public int numberOfPage;
 	@JsonProperty
-	final LiteraryGenre literaryGenre;
+	public LiteraryGenre literaryGenre;
 
 	public BookDTO(final String isbn, final String title, final String author, final int numberOfPage,
 			final LiteraryGenre literaryGenre) {
@@ -25,4 +25,10 @@ public class BookDTO {
 		this.numberOfPage = numberOfPage;
 		this.literaryGenre = literaryGenre;
 	}
+
+	public BookDTO() {
+
+	}
+
+
 }

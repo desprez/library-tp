@@ -14,17 +14,17 @@ import fr.training.spring.library.domain.library.Type;
 //and the DTO is not supposed to have any kind of intelligence
 public class LibraryDTO {
 	@JsonProperty
-	final Type type;
+	public Type type;
 
 	@JsonProperty
-	final AddressDTO addressDTO;
+	public AddressDTO addressDTO;
 
 	@NotNull(message = ErrorCodes.LIBRARY_MUST_HAVE_A_DIRECTOR)
 	@JsonProperty
-	final DirectorDTO directorDTO;
+	public DirectorDTO directorDTO;
 
 	@JsonProperty
-	final List<BookDTO> bookDTOList;
+	public List<BookDTO> bookDTOList;
 
 	public LibraryDTO(final Type type, final AddressDTO addressDTO, final DirectorDTO directorDTO,
 			final List<BookDTO> bookDTOList) {
@@ -32,6 +32,10 @@ public class LibraryDTO {
 		this.addressDTO = addressDTO;
 		this.directorDTO = directorDTO;
 		this.bookDTOList = Collections.unmodifiableList(bookDTOList);
+	}
+
+	public LibraryDTO() {
+
 	}
 
 

@@ -7,10 +7,10 @@ import fr.training.spring.library.domain.library.book.LiteraryGenre;
 public class BookReferenceDTO {
 
 	@JsonProperty
-	final String isbn;
+	public String isbn;
 
 	@JsonProperty
-	final LiteraryGenre literaryGenre;
+	public LiteraryGenre literaryGenre;
 
 	public BookReferenceDTO(final String isbn, final LiteraryGenre literaryGenre) {
 		this.isbn = isbn;
@@ -23,6 +23,10 @@ public class BookReferenceDTO {
 
 	public LiteraryGenre getLiteraryGenre() {
 		return literaryGenre;
+	}
+
+	public BookReferenceDTO() {
+
 	}
 
 }
