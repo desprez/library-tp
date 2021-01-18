@@ -57,7 +57,7 @@ public class LibraryService {
 	}
 
 	public void referenceBook(final Long libraryId, final String isbn, final LiteraryGenre literaryGenre) {
-		final Book book = bookRepository.searchBook(isbn, literaryGenre);
+		final Book book = bookRepository.searchBook(isbn );
 		book.assignLiteraryGenre(literaryGenre);
 
 		final Library library = obtain(libraryId);

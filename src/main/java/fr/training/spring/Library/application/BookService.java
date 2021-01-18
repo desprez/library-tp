@@ -17,8 +17,7 @@ public class BookService {
 	private BookRepository bookRepository;
 
 	public Book searchBookByISBN(final String isbn) {
-		return bookRepository.searchBook(isbn, null);
+		return bookRepository.searchBook(isbn);
 	}
-
 
 }
