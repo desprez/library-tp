@@ -17,7 +17,6 @@ import fr.training.spring.library.domain.exception.NotFoundException;
 import fr.training.spring.library.domain.exception.OpenLibraryTechnicalException;
 import fr.training.spring.library.domain.library.book.Book;
 import fr.training.spring.library.domain.library.book.BookRepository;
-import fr.training.spring.library.domain.library.book.LiteraryGenre;
 import fr.training.spring.library.infrastructure.http.dto.AuthorInfo;
 import fr.training.spring.library.infrastructure.http.dto.BookInfo;
 
@@ -31,7 +30,7 @@ public class BookExternalRepositoryImpl implements BookRepository {
 	private RestTemplate restTemplate;
 
 	@Override
-	public Book searchBook(final String isbn, final LiteraryGenre literaryGenre) {
+	public Book searchBook(final String isbn ) {
 
 		try {
 			final ResponseEntity<BookInfo> response = restTemplate.getForEntity("/isbn/" + isbn + ".json",
@@ -42,7 +41,7 @@ public class BookExternalRepositoryImpl implements BookRepository {
 
 			final String authorName = searchAuthor(bookInfo.getAuthors().get(0).getKey());
 
-			return new Book(null, isbn, bookInfo.getTitle(), authorName, bookInfo.getNumber_of_pages(), literaryGenre);
+			return new Book(null, isbn, bookInfo.getTitle(), authorName, bookInfo.getNumber_of_pages(), null);
 
 		} catch (HttpClientErrorException | HttpServerErrorException e) {
 			if (HttpStatus.NOT_FOUND.equals(e.getStatusCode())) {

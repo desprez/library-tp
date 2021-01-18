@@ -78,4 +78,8 @@ public class Book {
 	public String toString() {
 		return String.format("%s{id:%s)", this.getClass().getSimpleName(), id);
 	}
+
+	public void assignLiteraryGenre(final LiteraryGenre literaryGenre ) {
+		this.literaryGenre = literaryGenre;
+	}
 }
