@@ -17,6 +17,7 @@ import fr.training.spring.library.domain.exception.NotFoundException;
 import fr.training.spring.library.domain.exception.OpenLibraryTechnicalException;
 import fr.training.spring.library.domain.library.book.Book;
 import fr.training.spring.library.domain.library.book.BookRepository;
+import fr.training.spring.library.domain.library.book.LiteraryGenre;
 import fr.training.spring.library.infrastructure.http.dto.AuthorInfo;
 import fr.training.spring.library.infrastructure.http.dto.BookInfo;
 
@@ -30,7 +31,7 @@ public class BookExternalRepositoryImpl implements BookRepository {
 	private RestTemplate restTemplate;
 
 	@Override
-	public Book searchBook(final String isbn) {
+	public Book searchBook(final String isbn, final LiteraryGenre literaryGenre) {
 
 		try {
 			final ResponseEntity<BookInfo> response = restTemplate.getForEntity("/isbn/" + isbn + ".json",
@@ -39,10 +40,9 @@ public class BookExternalRepositoryImpl implements BookRepository {
 			final BookInfo bookInfo = response.getBody();
 			logger.debug(bookInfo.toString());
 
-			// Search Author with the first BookInfo author key
 			final String authorName = searchAuthor(bookInfo.getAuthors().get(0).getKey());
 
-			return new Book(null, isbn, bookInfo.getTitle(), authorName, bookInfo.getNumber_of_pages(), null);
+			return new Book(null, isbn, bookInfo.getTitle(), authorName, bookInfo.getNumber_of_pages(), literaryGenre);
 
 		} catch (HttpClientErrorException | HttpServerErrorException e) {
 			if (HttpStatus.NOT_FOUND.equals(e.getStatusCode())) {
@@ -52,19 +52,17 @@ public class BookExternalRepositoryImpl implements BookRepository {
 		}
 	}
 
-	private String searchAuthor(final String authorKey) {
-		final String authorName = "unknown";
-		if (!authorKey.isEmpty()) {
+	private String searchAuthor(final String key) {
+		String authorName = "unkwnown";
+
+		if (!key.isEmpty()) {
 			try {
-				final ResponseEntity<AuthorInfo> response = restTemplate.getForEntity(authorKey + ".json",
-						AuthorInfo.class);
-
+				final ResponseEntity<AuthorInfo> response = restTemplate.getForEntity(key + ".json", AuthorInfo.class);
 				final AuthorInfo authorInfo = response.getBody();
-				logger.debug(authorInfo.toString());
+				authorName = authorInfo.getName();
 
-				return authorInfo.getName();
 			} catch (final RestClientException e) {
-				logger.error("Error on author call for " + authorKey);
+				logger.error("Error on author call for " + key);
 			}
 		}
 		return authorName;
