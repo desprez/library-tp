@@ -1,8 +1,8 @@
 package fr.training.spring.library.domain.library;
 
-import java.util.Objects;
-
 import org.springframework.util.StringUtils;
+
+import com.google.common.base.Objects;
 
 import fr.training.spring.library.domain.ddd.DDD;
 import fr.training.spring.library.domain.exception.ErrorCodes;
@@ -38,19 +38,24 @@ public class Director {
 	}
 
 	@Override
-	public boolean equals(final Object o) {
-		if (this == o) {
+	public boolean equals(final Object obj) {
+		if (this == obj) {
 			return true;
 		}
-		if (o == null || getClass() != o.getClass()) {
+		if (obj == null) {
 			return false;
 		}
-		final Director director = (Director) o;
-		return surname.equals(director.surname) && name.equals(director.name);
+		if (!(obj instanceof Director)) {
+			return false;
+		}
+		final Director other = (Director) obj;
+		return Objects.equal(getName(), other.getName()) && //
+				Objects.equal(getSurname(), other.getSurname());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(surname, name);
+		return Objects.hashCode(getName(), getSurname());
 	}
+
 }

@@ -11,7 +11,6 @@ import fr.training.spring.library.domain.library.Library;
 import fr.training.spring.library.domain.library.LibraryRepository;
 import fr.training.spring.library.domain.library.Type;
 
-
 @DDD.ApplicationService
 @Transactional
 @Service

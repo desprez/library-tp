@@ -1,6 +1,6 @@
 package fr.training.spring.library.domain.library;
 
-import java.util.Objects;
+import com.google.common.base.Objects;
 
 import fr.training.spring.library.domain.ddd.DDD;
 
@@ -42,20 +42,26 @@ public class Address {
 	}
 
 	@Override
-	public boolean equals(final Object o) {
-		if (this == o) {
+	public boolean equals(final Object obj) {
+		if (this == obj) {
 			return true;
 		}
-		if (o == null || getClass() != o.getClass()) {
+		if (obj == null) {
 			return false;
 		}
-		final Address address = (Address) o;
-		return number == address.number && postalCode == address.postalCode && street.equals(address.street)
-				&& city.equals(address.city);
+		if (!(obj instanceof Address)) {
+			return false;
+		}
+		final Address other = (Address) obj;
+		return Objects.equal(getNumber(), other.getNumber()) && //
+				Objects.equal(getStreet(), other.getStreet()) &&  //
+				Objects.equal(getPostalCode(), other.getPostalCode()) && //
+				Objects.equal(getCity(), other.getCity());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(number, street, postalCode, city);
+		return Objects.hashCode(getNumber(), getStreet(), getPostalCode(), getCity());
 	}
+
 }

@@ -1,6 +1,7 @@
 package fr.training.spring.library.domain.library;
 
 import java.util.List;
+import java.util.Objects;
 
 import fr.training.spring.library.domain.ddd.DDD;
 import fr.training.spring.library.domain.library.book.Book;
@@ -64,22 +65,22 @@ public class Library {
 
 	@Override
 	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
 		if (obj == null) {
 			return false;
 		}
-
-		if (!this.getClass().isAssignableFrom(obj.getClass())) {
+		if (!(obj instanceof Library)) {
 			return false;
 		}
-
-		final Library that = this.getClass().cast(obj);
-
-		return that.id.equals(id);
+		final Library other = (Library) obj;
+		return Objects.equals(getId(), other.getId());
 	}
 
 	@Override
 	public int hashCode() {
-		return id.hashCode();
+		return Objects.hashCode(getId());
 	}
 
 	@Override

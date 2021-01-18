@@ -1,5 +1,7 @@
 package fr.training.spring.library.domain.library.book;
 
+import java.util.Objects;
+
 import fr.training.spring.library.domain.ddd.DDD;
 
 @DDD.Entity
@@ -56,23 +58,25 @@ public class Book {
 
 	@Override
 	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
 		if (obj == null) {
 			return false;
 		}
-
-		if (!this.getClass().isAssignableFrom(obj.getClass())) {
+		if (!(obj instanceof Book)) {
 			return false;
 		}
-
-		final Book that = this.getClass().cast(obj);
-
-		return that.id.equals(id);
+		final Book other = (Book) obj;
+		return Objects.equals(getId(), other.getId());
 	}
 
 	@Override
 	public int hashCode() {
-		return id.hashCode();
+		return Objects.hashCode(getId());
 	}
+
+
 
 	@Override
 	public String toString() {
