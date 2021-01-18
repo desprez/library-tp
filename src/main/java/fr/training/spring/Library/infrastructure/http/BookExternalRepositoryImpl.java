@@ -64,7 +64,7 @@ public class BookExternalRepositoryImpl implements BookRepository {
 
 				return authorInfo.getName();
 			} catch (final RestClientException e) {
-				logger.error("");
+				logger.error("Error on author call for " + authorKey);
 			}
 		}
 		return authorName;
