@@ -1,0 +1,1 @@
+-- SQL script for insert data (rename with SQL extension to activate)

@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: LibraryApi
+  debug: false
+  profiles:
+    active: local
+  jta:
+    enabled: false
+  jpa:
+    mapping-resources: 
+      - META-INF/common.orm.xml
+    open-in-view: false
+#    database: h2
+  cache:
+    jcache:
+      config: classpath:cache/ehcache.xml
+
+# Logging Configurations
+logging:
+  level:
+    ROOT: INFO
+    org.springframework: INFO
+    fr.training.spring.library: TRACE
