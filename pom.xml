@@ -16,7 +16,7 @@
 		<module>Library-infrastructure</module>
 		<module>Library-application</module>
 		<module>Library-exposition</module>
-		<!-- <module>Library-batch</module> -->
+		<module>Library-batch</module>
 	</modules>
 
 	<properties>
