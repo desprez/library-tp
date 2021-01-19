@@ -84,7 +84,8 @@ public class JobConfiguration {
 		final DelimitedLineAggregator<LibraryDto> lineAggregator = new DelimitedLineAggregator<LibraryDto>();
 
 		final BeanWrapperFieldExtractor<LibraryDto> fieldExtractor = new BeanWrapperFieldExtractor<LibraryDto>();
-		fieldExtractor.setNames(new String[] { "id", "type", "addressNumber", "addressStreet", "addressPostalCode", "addressCity", "directorSurname", "directorName" });
+		fieldExtractor.setNames(new String[] { "id", "type", "addressNumber", "addressStreet", "addressPostalCode",
+				"addressCity", "directorSurname", "directorName" });
 		lineAggregator.setFieldExtractor(fieldExtractor);
 		lineAggregator.setDelimiter(";");
 
@@ -92,9 +93,12 @@ public class JobConfiguration {
 		writer.setHeaderCallback(new FlatFileHeaderCallback() {
 			@Override
 			public void writeHeader(final Writer writer) throws IOException {
-				writer.write("id;type;addressNumber;addressStreet;addressPostalCode;addressCity;directorSurname;directorName");
+				writer.write(
+						"id;type;addressNumber;addressStreet;addressPostalCode;addressCity;directorSurname;directorName");
 			}
 		});
+
+		// writer.setEncoding("UTF-8");
 		return writer;
 	}
 
