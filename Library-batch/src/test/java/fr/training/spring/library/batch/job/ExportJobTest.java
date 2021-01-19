@@ -59,7 +59,7 @@ public class ExportJobTest {
 	@Test
 	public void exportLibraryJob_should_success() throws Exception {
 		// Given
-		final File targetFile = new File(TMP_DIR + "/library.txt");
+		final File targetFile = new File(TMP_DIR + "/library.json");
 		final JobParametersBuilder jobParameterBuilder = new JobParametersBuilder();
 		jobParameterBuilder.addString("output-file", targetFile.getAbsolutePath());
 		// When
