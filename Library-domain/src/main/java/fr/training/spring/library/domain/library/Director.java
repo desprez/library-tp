@@ -2,7 +2,7 @@ package fr.training.spring.library.domain.library;
 
 import java.util.Objects;
 
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import fr.training.spring.library.domain.ddd.DDD;
 import fr.training.spring.library.domain.exception.ErrorCodes;
@@ -24,7 +24,7 @@ public class Director {
 	}
 
 	public void validate() {
-		if (this == null || StringUtils.isEmpty(surname) || StringUtils.isEmpty(name == null)) {
+		if (this == null || StringUtils.isEmpty(surname) || StringUtils.isEmpty(name)) {
 			throw new ValidationException("Director is null", ErrorCodes.LIBRARY_MUST_HAVE_A_DIRECTOR);
 		}
 	}

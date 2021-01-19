@@ -1,8 +1,10 @@
-package fr.training.spring.library.batch.importjob;
+package fr.training.spring.library.batch.job;
 
 import fr.training.spring.library.domain.library.Type;
 
 public class LibraryDto {
+
+	private Long id;
 
 	private Type type;
 
@@ -17,6 +19,14 @@ public class LibraryDto {
 	private String directorSurname;
 
 	private String directorName;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(final Long id) {
+		this.id = id;
+	}
 
 	public Type getType() {
 		return type;

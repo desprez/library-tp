@@ -1,0 +1,5 @@
+id;type;addressNumber;addressStreet;addressPostalCode;addressCity;directorSurname;directorName
+1;NATIONAL;11;Quai FranÃ§ois Mauriac;75013;PARIS;FranÃ§ois;HervÃ©
+2;PUBLIC;10; Rue Valette, ;93100;MONTREUIL;Remy;Pascal
+3;PUBLIC;154;Rue Lecourbe;75015;PARIS;Dupuis;Simone
+4;PUBLIC;2;Place Baudoyer;75004;PARIS;Simon;Nicolas

@@ -1,4 +1,4 @@
-package fr.training.spring.library.batch;
+package fr.training.spring.library;
 
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.SpringApplication;
