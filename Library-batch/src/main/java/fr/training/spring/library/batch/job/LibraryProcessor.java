@@ -31,6 +31,18 @@ public class LibraryProcessor implements ItemProcessor<Long, LibraryDto> {
 		libraryDto.setAddressPostalCode(library.getAddress().getPostalCode());
 		libraryDto.setDirectorSurname(library.getDirector().getSurname());
 		libraryDto.setDirectorName(library.getDirector().getName());
+
+		library.getBooks().forEach(book -> {
+			final BookDto dto = new BookDto();
+			dto.setId(book.getId());
+			dto.setAuthor(book.getAuthor());;
+			dto.setIsbn(book.getIsbn());
+			dto.setTitle(book.getTitle());
+			dto.setNumberOfPage(book.getNumberOfPage());
+			dto.setLiteraryGenre(book.getLiteraryGenre());
+			libraryDto.getBooks().add(dto);
+		});
+
 		return libraryDto;
 	}
 

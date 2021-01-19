@@ -1,8 +1,5 @@
 package fr.training.spring.library.batch.job;
 
-import java.io.IOException;
-import java.io.Writer;
-
 import javax.sql.DataSource;
 
 import org.slf4j.Logger;
@@ -15,10 +12,9 @@ import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.DefaultJobParametersValidator;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
-import org.springframework.batch.item.file.FlatFileHeaderCallback;
-import org.springframework.batch.item.file.FlatFileItemWriter;
-import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
-import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
+import org.springframework.batch.item.json.JacksonJsonObjectMarshaller;
+import org.springframework.batch.item.json.JsonFileItemWriter;
+import org.springframework.batch.item.json.builder.JsonFileItemWriterBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -56,7 +52,7 @@ public class JobConfiguration {
 	}
 
 	@Bean
-	public Step exportStep(final FlatFileItemWriter<LibraryDto> exportWriter,
+	public Step exportStep(final JsonFileItemWriter<LibraryDto> exportWriter,
 			final LibraryProcessor customerProcessor) {
 		return stepBuilderFactory.get("export-step").<Long, LibraryDto>chunk(10) //
 				.reader(exportReader()) //
@@ -76,30 +72,14 @@ public class JobConfiguration {
 
 	@StepScope // Mandatory for using jobParameters
 	@Bean
-	public FlatFileItemWriter<LibraryDto> exportWriter(
-			@Value("#{jobParameters['output-file']}") final String outputFile) {
-		final FlatFileItemWriter<LibraryDto> writer = new FlatFileItemWriter<LibraryDto>();
-		writer.setResource(new FileSystemResource(outputFile));
+	public JsonFileItemWriter<LibraryDto> jsonFileItemWriter(
+			@Value("#{jobParameters['output-file']}") final String fileName) {
 
-		final DelimitedLineAggregator<LibraryDto> lineAggregator = new DelimitedLineAggregator<LibraryDto>();
-
-		final BeanWrapperFieldExtractor<LibraryDto> fieldExtractor = new BeanWrapperFieldExtractor<LibraryDto>();
-		fieldExtractor.setNames(new String[] { "id", "type", "addressNumber", "addressStreet", "addressPostalCode",
-				"addressCity", "directorSurname", "directorName" });
-		lineAggregator.setFieldExtractor(fieldExtractor);
-		lineAggregator.setDelimiter(";");
-
-		writer.setLineAggregator(lineAggregator);
-		writer.setHeaderCallback(new FlatFileHeaderCallback() {
-			@Override
-			public void writeHeader(final Writer writer) throws IOException {
-				writer.write(
-						"id;type;addressNumber;addressStreet;addressPostalCode;addressCity;directorSurname;directorName");
-			}
-		});
-
-		// writer.setEncoding("UTF-8");
-		return writer;
+		return new JsonFileItemWriterBuilder<LibraryDto>() //
+				.jsonObjectMarshaller(new JacksonJsonObjectMarshaller<>()) //
+				.resource(new FileSystemResource(fileName)) //
+				.name("LibraryJsonFileItemWriter") //
+				.build();
 	}
 
 }

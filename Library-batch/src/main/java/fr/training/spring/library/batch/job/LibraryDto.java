@@ -1,24 +1,40 @@
 package fr.training.spring.library.batch.job;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import fr.training.spring.library.domain.library.Type;
 
 public class LibraryDto {
 
+	@JsonProperty
 	private Long id;
 
+	@JsonProperty
 	private Type type;
 
+	@JsonProperty
 	private int addressNumber;
 
+	@JsonProperty
 	private String addressStreet;
 
+	@JsonProperty
 	private int addressPostalCode;
 
+	@JsonProperty
 	private String addressCity;
 
+	@JsonProperty
 	private String directorSurname;
 
+	@JsonProperty
 	private String directorName;
+
+	@JsonProperty("books")
+	private List<BookDto> books = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -82,6 +98,14 @@ public class LibraryDto {
 
 	public void setDirectorName(final String directorName) {
 		this.directorName = directorName;
+	}
+
+	public List<BookDto> getBooks() {
+		return books;
+	}
+
+	public void setBooks(final List<BookDto> books) {
+		this.books = books;
 	}
 
 }
