@@ -46,7 +46,7 @@ public class JobConfiguration {
 	private FullReportListener jobListener;
 
 	@Bean
-	public Job exportJob(final Step exportStep) {
+	public Job exportJob(final Step exportStep /* injected by Spring*/) {
 		return jobBuilderFactory.get("export-job") //
 				.validator(new DefaultJobParametersValidator(new String[] { "output-file" }, new String[] {})) //
 				.incrementer(new RunIdIncrementer()) // job can be launched as many times as desired
@@ -56,11 +56,12 @@ public class JobConfiguration {
 	}
 
 	@Bean
-	public Step exportStep(final FlatFileItemWriter<LibraryDto> exportWriter,
-			final LibraryProcessor customerProcessor) {
+	public Step exportStep(final FlatFileItemWriter<LibraryDto> exportWriter /* injected by Spring*/,
+			final LibraryProcessor libraryProcessor /* injected by Spring*/) {
+
 		return stepBuilderFactory.get("export-step").<Long, LibraryDto>chunk(10) //
 				.reader(exportReader()) //
-				.processor(customerProcessor) //
+				.processor(libraryProcessor) //
 				.writer(exportWriter) //
 				.build();
 	}
@@ -77,7 +78,7 @@ public class JobConfiguration {
 	@StepScope // Mandatory for using jobParameters
 	@Bean
 	public FlatFileItemWriter<LibraryDto> exportWriter(
-			@Value("#{jobParameters['output-file']}") final String outputFile) {
+			@Value("#{jobParameters['output-file']}") final String outputFile /* injected by Spring*/) {
 		final FlatFileItemWriter<LibraryDto> writer = new FlatFileItemWriter<LibraryDto>();
 		writer.setResource(new FileSystemResource(outputFile));
 
